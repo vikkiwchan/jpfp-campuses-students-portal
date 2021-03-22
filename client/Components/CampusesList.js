@@ -8,6 +8,9 @@ const CampusesList = ({ campuses }) => {
   return (
     <div>
       <h1>All Campuses</h1>
+      <Link to='/create-campus'>
+        <button>Add Campus</button>
+      </Link>
       <div id='all-campuses' className='grid-container'>
         {campuses.map((campus) => (
           <Link to={`/campuses/${campus.id}`} key={campus.id}>

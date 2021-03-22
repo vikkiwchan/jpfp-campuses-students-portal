@@ -31,7 +31,7 @@ const Campus = db.define('campus', {
 });
 
 Campus.beforeSave((campus) => {
-  if (!campus.description) {
+  if (!campus.description || campus.description === '') {
     campus.description = `Campus description is ${faker.lorem.paragraphs(3)}`;
   }
 });

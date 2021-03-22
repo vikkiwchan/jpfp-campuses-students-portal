@@ -13,6 +13,15 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+// POST /api/students
+router.post('/', async (req, res, next) => {
+  try {
+    res.status(201).send(await Student.create(req.body));
+  } catch (err) {
+    console.error(err);
+  }
+});
+
 // GET /api/students/:studentId
 router.get('/:studentId', async (req, res, next) => {
   try {

@@ -9,6 +9,8 @@ import CampusesList from './CampusesList';
 import SingleCampus from './SingleCampus';
 import StudentsList from './StudentsList';
 import SingleStudent from './SingleStudent';
+import CreateCampus from './CreateCampus';
+import CreateStudent from './CreateStudent';
 
 class Main extends Component {
   componentDidMount() {
@@ -25,6 +27,8 @@ class Main extends Component {
             <Route exact path='/campuses/:campusId' component={SingleCampus} />
             <Route exact path='/students' component={StudentsList} />
             <Route path='/students/:studentId' component={SingleStudent} />
+            <Route path='/create-campus' component={CreateCampus} />
+            <Route path='/create-student' component={CreateStudent} />
           </Switch>
         </div>
       </Router>

@@ -64,3 +64,17 @@ img {
 .selected {
   background-color: dodgerBlue;
 }
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form input {
+  padding: 10px;
+}
+
+form label {
+  padding-top: 15px;
+  padding-bottom: 5px;
+}

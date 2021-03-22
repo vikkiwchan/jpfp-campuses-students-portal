@@ -20,15 +20,21 @@ class SingleStudent extends Component {
           <div>
             <h2>{fullName}</h2>
             <p>{email}</p>
-            <p>{gpa}</p>
+            <p>GPA: {gpa}</p>
             <button>edit</button>
             <button>delete</button>
           </div>
         </div>
-        {campus.id ? <p>This student is registered at {campus.name}</p> : <></>}
-        <Link to={`/campuses/${campus.id}`} key={campus.id}>
-          <Campus campus={campus} />
-        </Link>
+        {campus.id ? (
+          <>
+            <p>This student is registered at {campus.name}</p>
+            <Link to={`/campuses/${campus.id}`} key={campus.id}>
+              <Campus campus={campus} />
+            </Link>
+          </>
+        ) : (
+          <p>This student is not registered to a campus yet</p>
+        )}
       </div>
     );
   }
