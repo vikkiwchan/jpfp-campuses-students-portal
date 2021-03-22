@@ -1,18 +1,21 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const Campus = ({ campus }) => {
+const Campus = (props) => {
+  console.log('called from campus', props);
+  const { campus } = props;
   return (
-    <div key={campus.id} className='grid-item-campus'>
-      <div className='card'>
-        <img src={campus.imageUrl} />
-        <div>
+    <div className='card'>
+      <img src={campus.imageUrl} />
+      <div>
+        <Link to={`/campuses/${campus.id}`} key={campus.id}>
           <h2>{campus.name}</h2>
-          <p>number of students</p>
-          <div className='edit-delete'>
-            <button>edit</button>
-            <button>delete</button>
-          </div>
-        </div>
+        </Link>
+        <p>
+          {campus.students
+            ? `Students (${campus.students.length})`
+            : 'No students'}
+        </p>
       </div>
     </div>
   );

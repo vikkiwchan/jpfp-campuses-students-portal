@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchCampus } from '../store/singleCampusReducer';
+import { deleteCampus } from '../store/campusesReducer';
 import { Link } from 'react-router-dom';
 
 class SingleCampus extends Component {
@@ -8,8 +9,9 @@ class SingleCampus extends Component {
     this.props.fetchCampus(this.props.match.params.campusId);
   }
   render() {
-    const { campus } = this.props;
-    let { name, imageUrl, description, address, students } = campus;
+    //console.log('render', this.props);
+    const { campus, deleteCampus } = this.props;
+    let { id, name, imageUrl, description, address, students } = campus;
     students = students || [];
     return (
       <div id='single-campus'>
@@ -23,7 +25,7 @@ class SingleCampus extends Component {
         <div className='row-info'>
           <p>{address}</p>
           <button>edit</button>
-          <button>delete</button>
+          <button onClick={() => deleteCampus(id)}>delete</button>
         </div>
         <div>
           <h3>Students on Campus</h3>
@@ -53,9 +55,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, { history }) => {
   return {
     fetchCampus: (id) => dispatch(fetchCampus(id)),
+    deleteCampus: (id) => dispatch(deleteCampus(id, history)),
   };
 };
 

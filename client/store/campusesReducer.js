@@ -39,6 +39,28 @@ export const createCampus = (campus, history) => {
   };
 };
 
+// DELETE CAMPUS
+const DELETE_CAMPUS = 'DELETE_CAMPUS';
+
+const _deleteCampus = (id) => ({
+  type: DELETE_CAMPUS,
+  id,
+});
+
+export const deleteCampus = (id, history) => {
+  return async (dispatch) => {
+    try {
+      await axios.delete(`/api/campuses/${id}`);
+      dispatch(_deleteCampus(id));
+      if (history) {
+        history.push('/campuses');
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+};
+
 // REDUCER
 export default (state = [], action) => {
   switch (action.type) {
@@ -46,6 +68,8 @@ export default (state = [], action) => {
       return action.campuses;
     case CREATE_CAMPUS:
       return [...state, action.campus];
+    case DELETE_CAMPUS:
+      return state.filter((campus) => campus.id !== action.id);
     default:
       return state;
   }

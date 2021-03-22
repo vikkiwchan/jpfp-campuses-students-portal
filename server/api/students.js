@@ -6,7 +6,7 @@ const {
 // GET /api/students
 router.get('/', async (req, res, next) => {
   try {
-    const students = await Student.findAll();
+    const students = await Student.findAll({ include: [{ model: Campus }] });
     res.status(201).send(students);
   } catch (err) {
     console.error(err);
@@ -17,6 +17,17 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try {
     res.status(201).send(await Student.create(req.body));
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+// DELETE /api/students
+router.delete('/:studentId', async (req, res, next) => {
+  try {
+    const student = await Student.findByPk(req.params.studentId);
+    await student.destroy();
+    res.sendStatus(204);
   } catch (err) {
     console.error(err);
   }

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchStudent } from '../store/singleStudentReducer';
+import { deleteStudent } from '../store/studentsReducer';
 import Campus from './Campus';
-import { Link } from 'react-router-dom';
 
 class SingleStudent extends Component {
   componentDidMount() {
@@ -10,8 +10,8 @@ class SingleStudent extends Component {
   }
   render() {
     // console.log('-----> called from SingleStudent:', this.props);
-    const { student } = this.props;
-    const { fullName, gpa, imageUrl, email } = student;
+    const { student, deleteStudent } = this.props;
+    const { fullName, gpa, imageUrl, email, id } = student;
     const campus = this.props.student.campus || {};
     return (
       <div id='single-student'>
@@ -22,15 +22,13 @@ class SingleStudent extends Component {
             <p>{email}</p>
             <p>GPA: {gpa}</p>
             <button>edit</button>
-            <button>delete</button>
+            <button onClick={() => deleteStudent(id)}>delete</button>
           </div>
         </div>
         {campus.id ? (
           <>
             <p>This student is registered at {campus.name}</p>
-            <Link to={`/campuses/${campus.id}`} key={campus.id}>
-              <Campus campus={campus} />
-            </Link>
+            <Campus campus={campus} />
           </>
         ) : (
           <p>This student is not registered to a campus yet</p>
@@ -45,9 +43,10 @@ const mapStateToProps = (state) => {
     student: state.student,
   };
 };
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, { history }) => {
   return {
     fetchStudent: (id) => dispatch(fetchStudent(id)),
+    deleteStudent: (id) => dispatch(deleteStudent(id, history)),
   };
 };
 

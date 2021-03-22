@@ -37,12 +37,35 @@ export const createStudent = (student, history) => {
   };
 };
 
+const DELETE_STUDENT = 'DELETE_STUDENT';
+
+const _deleteStudent = (id) => ({
+  type: DELETE_STUDENT,
+  id,
+});
+
+export const deleteStudent = (id, history) => {
+  return async (dispatch) => {
+    try {
+      await axios.delete(`/api/students/${id}`);
+      if (history) {
+        history.push('/students');
+      }
+      dispatch(_deleteStudent(id));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+};
+
 export default (state = [], action) => {
   switch (action.type) {
     case LOAD_STUDENTS:
       return action.students;
     case CREATE_STUDENT:
       return [...state, action.student];
+    case DELETE_STUDENT:
+      return state.filter((student) => student.id !== action.id);
     default:
       return state;
   }
