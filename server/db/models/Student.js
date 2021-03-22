@@ -30,7 +30,7 @@ const Student = db.define('student', {
       notEmpty: true,
     },
   },
-  image: {
+  imageUrl: {
     type: DataTypes.STRING,
     defaultValue:
       'https://as2.ftcdn.net/jpg/02/76/44/01/500_F_276440189_NipLHqCA6EmdxmnyFtom1mDixC63GGKT.jpg',
