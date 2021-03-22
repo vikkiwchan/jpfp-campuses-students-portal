@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 export default () => (
   <nav>
-    <NavLink to='/' activeClassName='selected'>
+    <NavLink exact to='/' activeClassName='selected'>
       Home
     </NavLink>
     <NavLink to='/campuses' activeClassName='selected'>

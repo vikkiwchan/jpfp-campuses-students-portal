@@ -5,8 +5,10 @@ import { fetchStudents } from '../store/studentsReducer';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Nav from './Nav';
-import Campuses from './Campuses';
-import Students from './Students';
+import CampusesList from './CampusesList';
+import SingleCampus from './SingleCampus';
+import StudentsList from './StudentsList';
+import SingleStudent from './SingleStudent';
 
 class Main extends Component {
   componentDidMount() {
@@ -19,8 +21,10 @@ class Main extends Component {
         <div id='app'>
           <Nav />
           <Switch>
-            <Route exact path='/campuses' component={Campuses} />
-            <Route exact path='/students' component={Students} />
+            <Route exact path='/campuses' component={CampusesList} />
+            <Route exact path='/campuses/:campusId' component={SingleCampus} />
+            <Route exact path='/students' component={StudentsList} />
+            <Route path='/students/:studentId' component={SingleStudent} />
           </Switch>
         </div>
       </Router>
