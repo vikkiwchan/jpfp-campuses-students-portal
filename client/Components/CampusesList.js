@@ -9,7 +9,7 @@ const CampusesList = ({ campuses, deleteCampus }) => {
   return (
     <div>
       <h1>All Campuses</h1>
-      <Link to='/create-campus'>
+      <Link to={'/campuses/add-campus'}>
         <button>Add Campus</button>
       </Link>
       <div id='all-campuses' className='grid-container'>
@@ -17,7 +17,9 @@ const CampusesList = ({ campuses, deleteCampus }) => {
           <div className='grid-item-campus' key={campus.id}>
             <Campus campus={campus} />
             <div className='edit-delete'>
-              <button>edit</button>
+              <Link to={`/campuses/edit-campus/${campus.id}`}>
+                <button>edit</button>
+              </Link>
               <button onClick={() => deleteCampus(campus.id)}>delete</button>
             </div>
           </div>

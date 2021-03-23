@@ -24,14 +24,16 @@ class SingleCampus extends Component {
         </div>
         <div className='row-info'>
           <p>{address}</p>
-          <button>edit</button>
+          <Link to={`/campuses/edit-campus/${id}`}>
+            <button>edit</button>
+          </Link>
           <button onClick={() => deleteCampus(id)}>delete</button>
         </div>
         <div>
           <h3>Students on Campus</h3>
           <div id='all-students' className='grid-container'>
             {students.length === 0 ? (
-              <p>No students on this campus</p>
+              <p>No students are registered to this campus</p>
             ) : (
               students.map((student) => (
                 <Link to={`/students/${student.id}`} key={student.id}>

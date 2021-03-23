@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Campus = (props) => {
-  console.log('called from campus', props);
   const { campus } = props;
   return (
     <div className='card'>

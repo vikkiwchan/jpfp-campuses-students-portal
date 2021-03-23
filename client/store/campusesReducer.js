@@ -61,6 +61,26 @@ export const deleteCampus = (id, history) => {
   };
 };
 
+// UPDATE CAMPUS
+const UPDATE_CAMPUS = 'UPDATE_CAMPUS';
+
+const _updateCampus = (campus) => ({
+  type: UPDATE_CAMPUS,
+  campus,
+});
+
+export const updateCampus = (id, campus, history) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.put(`/api/campuses/${id}`, campus);
+      dispatch(_updateCampus(data));
+      history.push(`/campuses`);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+};
+
 // REDUCER
 export default (state = [], action) => {
   switch (action.type) {
@@ -70,6 +90,10 @@ export default (state = [], action) => {
       return [...state, action.campus];
     case DELETE_CAMPUS:
       return state.filter((campus) => campus.id !== action.id);
+    case UPDATE_CAMPUS:
+      return state.map((campus) =>
+        campus.id !== action.campus.id ? campus : action.campus
+      );
     default:
       return state;
   }
