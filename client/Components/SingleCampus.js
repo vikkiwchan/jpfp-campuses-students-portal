@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchCampus } from '../store/singleCampusReducer';
 import { deleteCampus } from '../store/campusesReducer';
+import { updateStudent } from '../store/studentsReducer';
 import { Link } from 'react-router-dom';
 
 class SingleCampus extends Component {
@@ -9,8 +10,7 @@ class SingleCampus extends Component {
     this.props.fetchCampus(this.props.match.params.campusId);
   }
   render() {
-    //console.log('render', this.props);
-    const { campus, deleteCampus } = this.props;
+    const { campus, deleteCampus, unregister } = this.props;
     let { id, name, imageUrl, description, address, students } = campus;
     students = students || [];
     return (
@@ -36,12 +36,17 @@ class SingleCampus extends Component {
               <p>No students are registered to this campus</p>
             ) : (
               students.map((student) => (
-                <Link to={`/students/${student.id}`} key={student.id}>
-                  <div key={student.id} className='grid-item-student'>
-                    <img src={student.imageUrl} className='portrait' />
+                <div key={student.id} className='grid-item-student'>
+                  <img src={student.imageUrl} className='portrait' />
+                  <Link to={`/students/${student.id}`}>
                     <h2>{student.fullName}</h2>
-                  </div>
-                </Link>
+                  </Link>
+                  <button
+                    onClick={() => unregister(student.id, { campusId: null })}
+                  >
+                    Unregister
+                  </button>
+                </div>
               ))
             )}
           </div>
@@ -61,6 +66,7 @@ const mapDispatchToProps = (dispatch, { history }) => {
   return {
     fetchCampus: (id) => dispatch(fetchCampus(id)),
     deleteCampus: (id) => dispatch(deleteCampus(id, history)),
+    unregister: (id, student) => dispatch(updateStudent(id, student, history)),
   };
 };
 

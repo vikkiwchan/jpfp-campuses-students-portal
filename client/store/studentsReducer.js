@@ -58,6 +58,25 @@ export const deleteStudent = (id, history) => {
   };
 };
 
+export const UPDATE_STUDENT = 'UPDATE_STUDENT';
+
+export const _updateStudent = (student) => ({
+  type: UPDATE_STUDENT,
+  student,
+});
+
+export const updateStudent = (id, student, history) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.put(`/api/students/${id}`, student);
+      dispatch(_updateStudent(data));
+      history.push(`/campuses/${id}`);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+};
+
 export default (state = [], action) => {
   switch (action.type) {
     case LOAD_STUDENTS:
@@ -66,6 +85,10 @@ export default (state = [], action) => {
       return [...state, action.student];
     case DELETE_STUDENT:
       return state.filter((student) => student.id !== action.id);
+    case UPDATE_STUDENT:
+      return state.map((student) =>
+        student.id === action.student.id ? action.student : student
+      );
     default:
       return state;
   }

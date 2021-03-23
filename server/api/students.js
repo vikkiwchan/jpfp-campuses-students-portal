@@ -33,6 +33,17 @@ router.delete('/:studentId', async (req, res, next) => {
   }
 });
 
+// PUT_UPDATE /api/students
+router.put('/:studentId', async (req, res, next) => {
+  try {
+    const student = await Student.findByPk(req.params.studentId);
+    await student.update(req.body);
+    res.status(201).send(student);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
 // GET /api/students/:studentId
 router.get('/:studentId', async (req, res, next) => {
   try {
