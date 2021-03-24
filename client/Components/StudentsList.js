@@ -13,7 +13,10 @@ const StudentsList = ({ students }) => {
       </Link>
       <div id='all-students' className='grid-container'>
         {students.map((student) => (
-          <Student student={student} key={student.id} />
+          <Student
+            student={{ ...student, studentListView: true }}
+            key={student.id}
+          />
         ))}
       </div>
     </>

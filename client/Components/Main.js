@@ -12,8 +12,6 @@ import SingleStudent from './SingleStudent';
 import AddEditCampus from './AddEditCampus';
 import CreateStudent from './CreateStudent';
 
-import Button from 'react-bootstrap/Button';
-
 class Main extends Component {
   componentDidMount() {
     this.props.loadCampuses();
@@ -23,18 +21,8 @@ class Main extends Component {
     return (
       <Router>
         <div id='app'>
-          <Button>About</Button>
           <Nav />
           <Switch>
-            {/* <Route
-              path='/'
-              render={() => (
-                <>
-                  <CampusesList />
-                  <StudentsList />
-                </>
-              )}
-            /> */}
             <Route exact path='/campuses' component={CampusesList} />
             <Route
               exact

@@ -65,12 +65,11 @@ export const _updateStudent = (student) => ({
   student,
 });
 
-export const updateStudent = (id, student, history) => {
+export const updateStudent = (id, student) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.put(`/api/students/${id}`, student);
       dispatch(_updateStudent(data));
-      history.push(`/campuses/${id}`);
     } catch (err) {
       console.error(err);
     }

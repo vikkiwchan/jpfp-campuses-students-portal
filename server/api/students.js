@@ -6,7 +6,7 @@ const {
 // GET /api/students
 router.get('/', async (req, res, next) => {
   try {
-    const students = await Student.findAll({ include: [{ model: Campus }] });
+    const students = await Student.findAll();
     res.status(201).send(students);
   } catch (err) {
     console.error(err);
