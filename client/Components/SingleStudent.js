@@ -27,7 +27,9 @@ class SingleStudent extends Component {
         {campus.id ? (
           <>
             <p>This student is registered at {campus.name}</p>
-            <Campus campusId={campus.id} />
+            <Campus
+              campusProps={{ campusId: campus.id, campusListView: false }}
+            />
           </>
         ) : (
           <p>This student is not registered to a campus yet</p>

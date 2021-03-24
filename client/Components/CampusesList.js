@@ -1,11 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { deleteCampus } from '../store/campusesReducer';
 
 import Campus from './Campus';
 
-const CampusesList = ({ campuses, deleteCampus }) => {
+const CampusesList = ({ campuses }) => {
   return (
     <div>
       <h1>All Campuses</h1>
@@ -15,13 +14,9 @@ const CampusesList = ({ campuses, deleteCampus }) => {
       <div id='all-campuses' className='grid-container'>
         {campuses.map((campus) => (
           <div className='grid-item-campus' key={campus.id}>
-            <Campus campusId={campus.id} />
-            <div className='edit-delete'>
-              <Link to={`/campuses/edit-campus/${campus.id}`}>
-                <button>edit</button>
-              </Link>
-              <button onClick={() => deleteCampus(campus.id)}>delete</button>
-            </div>
+            <Campus
+              campusProps={{ campusId: campus.id, campusListView: true }}
+            />
           </div>
         ))}
       </div>
@@ -35,10 +30,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    deleteCampus: (id) => dispatch(deleteCampus(id)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(CampusesList);
+export default connect(mapStateToProps)(CampusesList);

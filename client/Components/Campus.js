@@ -1,8 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { deleteCampus } from '../store/campusesReducer';
 
-const Campus = ({ campus, students }) => {
+const Campus = ({ campus, students, campusProps }) => {
+  const buttonsView = campusProps.campusListView ? (
+    <div>
+      <Link to={`/campuses/edit-campus/${campus.id}`}>
+        <button>edit</button>
+      </Link>
+      <button onClick={() => deleteCampus(campus.id)}>delete</button>
+    </div>
+  ) : (
+    <></>
+  );
   return (
     <div className='card'>
       <img src={campus.imageUrl} />
@@ -13,6 +24,7 @@ const Campus = ({ campus, students }) => {
         <p>
           {students.length ? `Students (${students.length})` : 'No students'}
         </p>
+        {buttonsView}
       </div>
     </div>
   );
@@ -21,10 +33,19 @@ const Campus = ({ campus, students }) => {
 const mapStateToProps = (state, otherProps) => {
   return {
     campus:
-      state.campuses.find((campus) => campus.id === otherProps.campusId) || {},
+      state.campuses.find(
+        (campus) => campus.id === otherProps.campusProps.campusId
+      ) || {},
     students: state.students.filter(
-      (student) => student.campusId === otherProps.campusId
+      (student) => student.campusId === otherProps.campusProps.campusId
     ),
   };
 };
-export default connect(mapStateToProps)(Campus);
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deleteCampus: (id) => dispatch(deleteCampus(id)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Campus);
