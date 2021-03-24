@@ -15,7 +15,7 @@ const CampusesList = ({ campuses, deleteCampus }) => {
       <div id='all-campuses' className='grid-container'>
         {campuses.map((campus) => (
           <div className='grid-item-campus' key={campus.id}>
-            <Campus campus={campus} />
+            <Campus campusId={campus.id} />
             <div className='edit-delete'>
               <Link to={`/campuses/edit-campus/${campus.id}`}>
                 <button>edit</button>

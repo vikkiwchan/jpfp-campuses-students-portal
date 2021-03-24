@@ -9,7 +9,6 @@ class SingleStudent extends Component {
     this.props.fetchStudent(this.props.match.params.studentId);
   }
   render() {
-    // console.log('-----> called from SingleStudent:', this.props);
     const { student, deleteStudent } = this.props;
     const { fullName, gpa, imageUrl, email, id } = student;
     const campus = this.props.student.campus || {};
@@ -28,7 +27,7 @@ class SingleStudent extends Component {
         {campus.id ? (
           <>
             <p>This student is registered at {campus.name}</p>
-            <Campus campus={campus} />
+            <Campus campusId={campus.id} />
           </>
         ) : (
           <p>This student is not registered to a campus yet</p>

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { UPDATE_STUDENT } from './studentsReducer';
 
 // LOAD CAMPUSES
 const LOAD_CAMPUSES = 'LOAD_CAMPUSES';
