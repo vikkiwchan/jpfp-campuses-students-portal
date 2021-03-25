@@ -8,7 +8,7 @@ const StudentsList = ({ students }) => {
   return (
     <>
       <h1>All Students</h1>
-      <Link to='/create-student'>
+      <Link to='/students/add-student'>
         <button>Add Student</button>
       </Link>
       <div id='all-students' className='grid-container'>

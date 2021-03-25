@@ -9,6 +9,7 @@ import {
   CREATE_STUDENT,
   DELETE_STUDENT,
   UPDATE_STUDENT,
+  UNREGISTER_STUDENT,
 } from '../actionConstants/actions';
 
 export const loadCampuses = (campuses) => ({
@@ -58,5 +59,10 @@ export const _deleteStudent = (id) => ({
 
 export const _updateStudent = (student) => ({
   type: UPDATE_STUDENT,
+  student,
+});
+
+export const _unregisterStudent = (student) => ({
+  type: UNREGISTER_STUDENT,
   student,
 });

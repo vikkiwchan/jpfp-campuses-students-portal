@@ -1,39 +1,64 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { createStudent } from '../store/thunks/thunks';
+import { createStudent, updateStudent } from '../store/thunks/thunks';
 
-class CreateStudent extends Component {
-  constructor() {
-    super();
+class AddEditStudent extends Component {
+  constructor(props) {
+    super(props);
+    console.log('-----> constructor: ', this.props);
+    const {
+      id,
+      firstName,
+      lastName,
+      email,
+      imageUrl,
+      gpa,
+    } = this.props.student;
     this.state = {
-      firstName: '',
-      lastName: '',
-      email: '',
-      imageUrl: '',
-      gpa: 0,
+      firstName: id ? firstName : '',
+      lastName: id ? lastName : '',
+      email: id ? email : '',
+      imageUrl: id ? imageUrl : '',
+      gpa: id ? gpa : 0,
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidUpdate(prevProps) {
+    if (!prevProps.student.id && this.props.student.id) {
+      const { firstName, lastName, email, imageUrl, gpa } = this.props.student;
+      this.setState({
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        imageUrl: imageUrl,
+        gpa: gpa,
+      });
+    }
+  }
+
   handleInputChange(e) {
-    const name = e.target.name;
-    const value = e.target.value;
-    this.setState({ [name]: value });
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.createStudent({ ...this.state }, this.props.history);
+    if (this.props.location.pathname.includes('add')) {
+      this.props.add(this.state, this.props.history);
+    } else {
+      this.props.edit(this.props.match.params.studentId, this.state);
+    }
   }
 
   render() {
-    console.log(this.props);
     const { handleInputChange, handleSubmit } = this;
     const { firstName, lastName, email, imageUrl, gpa } = this.state;
     return (
-      <div id='add-student'>
-        <h2>Add Student</h2>
+      <div>
+        <h2>
+          {this.props.match.path.includes('add') ? 'Add ' : 'Edit '}Student
+        </h2>
         <form>
           <label htmlFor='firstName'>First Name</label>
           <input
@@ -71,16 +96,29 @@ class CreateStudent extends Component {
             onChange={handleInputChange}
           />
         </form>
-        <button onClick={handleSubmit}>Submit</button>
+        <button onClick={handleSubmit}>Save</button>
       </div>
     );
   }
 }
 
-const mapDispatchToProps = (dispatch, { history }) => {
+const mapStateToProps = (state, otherProps) => {
+  // console.log('-----> called from mapStateToProps - state:', state);
+  // console.log('-----> called from mapStateToProps - otherProps:', otherProps);
+  // find student based on other Props
   return {
-    createStudent: (student) => dispatch(createStudent(student, history)),
+    student:
+      state.students.find(
+        (student) => student.id === otherProps.match.params.studentId * 1
+      ) || {},
   };
 };
 
-export default connect(null, mapDispatchToProps)(CreateStudent);
+const mapDispatchToProps = (dispatch, { history }) => {
+  return {
+    add: (student) => dispatch(createStudent(student, history)),
+    edit: (id, student) => dispatch(updateStudent(id, student, history)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddEditStudent);

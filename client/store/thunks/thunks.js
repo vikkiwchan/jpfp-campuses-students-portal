@@ -10,6 +10,7 @@ import {
   _createStudent,
   _deleteStudent,
   _updateStudent,
+  _unregisterStudent,
 } from '../actionCreators/actionCreators';
 
 export const fetchCampuses = () => {
@@ -111,21 +112,35 @@ export const deleteStudent = (id, history) => {
   return async (dispatch) => {
     try {
       await axios.delete(`/api/students/${id}`);
+      dispatch(_deleteStudent(id));
       if (history) {
         history.push('/students');
       }
-      dispatch(_deleteStudent(id));
     } catch (err) {
       console.error(err);
     }
   };
 };
 
-export const updateStudent = (id, student) => {
+export const updateStudent = (id, student, history) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.put(`/api/students/${id}`, student);
       dispatch(_updateStudent(data));
+      if (history) {
+        history.push(`/students/${id}`);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+};
+
+export const unregisterStudent = (id, student) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.put(`/api/students/${id}`, student);
+      dispatch(_unregisterStudent(data));
     } catch (err) {
       console.error(err);
     }

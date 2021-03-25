@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { fetchStudent, deleteStudent } from '../store/thunks/thunks';
 import Campus from './Campus';
 
@@ -19,7 +20,9 @@ class SingleStudent extends Component {
             <h2>{fullName}</h2>
             <p>{email}</p>
             <p>GPA: {gpa}</p>
-            <button>edit</button>
+            <Link to={`/students/edit-student/${id}`}>
+              <button>edit</button>
+            </Link>
             <button onClick={() => deleteStudent(id)}>delete</button>
           </div>
         </div>

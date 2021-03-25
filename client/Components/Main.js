@@ -9,7 +9,7 @@ import SingleCampus from './SingleCampus';
 import StudentsList from './StudentsList';
 import SingleStudent from './SingleStudent';
 import AddEditCampus from './AddEditCampus';
-import CreateStudent from './CreateStudent';
+import AddEditStudent from './AddEditStudent';
 
 class Main extends Component {
   componentDidMount() {
@@ -37,11 +37,19 @@ class Main extends Component {
             <Route exact path='/students' component={StudentsList} />
             <Route
               exact
+              path='/students/add-student'
+              component={AddEditStudent}
+            />
+            <Route
+              exact
+              path='/students/edit-student/:studentId'
+              component={AddEditStudent}
+            />
+            <Route
+              exact
               path='/students/:studentId'
               component={SingleStudent}
             />
-
-            <Route path='/create-student' component={CreateStudent} />
           </Switch>
         </div>
       </Router>

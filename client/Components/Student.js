@@ -1,13 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { deleteStudent, updateStudent } from '../store/thunks/thunks';
+import { deleteStudent, unregisterStudent } from '../store/thunks/thunks';
 
 const Student = ({ student, deleteStudent, campus, unregister }) => {
-  //let { student, deleteStudent, campus, unregister } = props;
-  //let studentImageUrl = student.imageUrl || '';
-  //let studentFullName = student.fullName || '';
-  // let studentId = student.id || 1;
   campus = campus || {};
   const deleteOrUnregister = student.studentListView ? (
     <>
@@ -15,7 +11,9 @@ const Student = ({ student, deleteStudent, campus, unregister }) => {
       <button onClick={() => deleteStudent(student.id)}>delete</button>
     </>
   ) : (
-    <button onClick={() => unregister(student.id, { campusId: null })}>
+    <button
+      onClick={() => unregister(student.id, { ...student, campusId: null })}
+    >
       unregister
     </button>
   );
@@ -36,13 +34,14 @@ const mapStateToProps = (state, otherProps) => {
   );
   return {
     campus: campus,
+    students: state.students,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     deleteStudent: (id) => dispatch(deleteStudent(id)),
-    unregister: (id, student) => dispatch(updateStudent(id, student)),
+    unregister: (id, student) => dispatch(unregisterStudent(id, student)),
   };
 };
 

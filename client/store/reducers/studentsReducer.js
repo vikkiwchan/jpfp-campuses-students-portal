@@ -4,6 +4,7 @@ import {
   DELETE_STUDENT,
   UPDATE_STUDENT,
   DELETE_CAMPUS,
+  UNREGISTER_STUDENT,
 } from '../actionConstants/actions';
 
 export default (state = [], action) => {
@@ -22,6 +23,13 @@ export default (state = [], action) => {
       return state.map((student) => {
         if (student.campusId === action.id) {
           student.campusId = null;
+        }
+        return student;
+      });
+    case UNREGISTER_STUDENT:
+      return state.map((student) => {
+        if (student.id === action.student.id) {
+          return action.student;
         }
         return student;
       });
