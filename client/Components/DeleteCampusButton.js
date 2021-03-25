@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { deleteCampus } from '../store/campusesReducer';
+import { deleteCampus } from '../store/thunks/thunks';
 
 const DeleteCampusButton = (props) => {
   console.log('----> called from DeleteCampusButton', props);

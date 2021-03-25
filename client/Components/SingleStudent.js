@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchStudent } from '../store/singleStudentReducer';
-import { deleteStudent } from '../store/studentsReducer';
+import { fetchStudent, deleteStudent } from '../store/thunks/thunks';
 import Campus from './Campus';
 
 class SingleStudent extends Component {

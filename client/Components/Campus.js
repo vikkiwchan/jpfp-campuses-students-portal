@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { deleteCampus } from '../store/campusesReducer';
+import { deleteCampus } from '../store/thunks/thunks';
 
-const Campus = ({ campus, students, campusProps }) => {
+const Campus = ({ campus, students, campusProps, deleteCampus }) => {
   const buttonsView = campusProps.campusListView ? (
     <div>
       <Link to={`/campuses/edit-campus/${campus.id}`}>

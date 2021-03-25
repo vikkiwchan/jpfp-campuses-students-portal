@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchCampuses } from '../store/campusesReducer';
-import { fetchStudents } from '../store/studentsReducer';
+import { fetchCampuses, fetchStudents } from '../store/thunks/thunks';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Nav from './Nav';

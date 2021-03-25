@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchCampus } from '../store/singleCampusReducer';
-import { deleteCampus } from '../store/campusesReducer';
+import { fetchCampus, deleteCampus } from '../store/thunks/thunks';
 import { Link } from 'react-router-dom';
 import Student from './Student';
 

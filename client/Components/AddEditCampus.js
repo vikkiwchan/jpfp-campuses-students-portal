@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { createCampus } from '../store/campusesReducer';
-import { updateCampus } from '../store/campusesReducer';
+import { createCampus, updateCampus } from '../store/thunks/thunks';
 
 class AddEditCampus extends Component {
   constructor(props) {

@@ -1,9 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { deleteStudent, updateStudent } from '../store/studentsReducer';
+import { deleteStudent, updateStudent } from '../store/thunks/thunks';
 
 const Student = ({ student, deleteStudent, campus, unregister }) => {
+  //let { student, deleteStudent, campus, unregister } = props;
+  //let studentImageUrl = student.imageUrl || '';
+  //let studentFullName = student.fullName || '';
+  // let studentId = student.id || 1;
+  campus = campus || {};
   const deleteOrUnregister = student.studentListView ? (
     <>
       <p>{student.campusId ? campus.name : 'Unassigned to a campus'}</p>
