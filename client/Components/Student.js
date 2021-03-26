@@ -29,11 +29,11 @@ const Student = ({ student, deleteStudent, campus, unregister }) => {
 };
 
 const mapStateToProps = (state, otherProps) => {
-  const campus = state.campuses.find(
-    (campus) => campus.id === otherProps.student.campusId
-  );
   return {
-    campus: campus,
+    campus:
+      state.campuses.find(
+        (campus) => campus.id === otherProps.student.campusId
+      ) || {},
     students: state.students,
   };
 };

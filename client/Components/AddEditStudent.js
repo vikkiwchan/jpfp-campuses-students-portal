@@ -103,9 +103,6 @@ class AddEditStudent extends Component {
 }
 
 const mapStateToProps = (state, otherProps) => {
-  // console.log('-----> called from mapStateToProps - state:', state);
-  // console.log('-----> called from mapStateToProps - otherProps:', otherProps);
-  // find student based on other Props
   return {
     student:
       state.students.find(
