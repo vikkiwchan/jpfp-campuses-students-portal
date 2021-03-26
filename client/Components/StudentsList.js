@@ -1,23 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import Student from './Student';
+import Filter from './Filter';
 
 const StudentsList = ({ students }) => {
-  const [filter, setFilter] = useState('show-all');
-  // console.log('useState', filter);
-  if (filter === 'show-unregistered') {
-    students = students.filter((student) => student.campusId === null);
-  }
-
   return (
     <>
       <h1>All Students</h1>
-      <select onChange={(event) => setFilter(event.target.value)}>
-        <option value='show-all'>Show All Students</option>
-        <option value='show-unregistered'>Show Unregistered Students</option>
-      </select>
+      <Filter />
       <br />
       <Link to='/students/add-student'>
         <button>Add Student</button>
@@ -35,8 +27,21 @@ const StudentsList = ({ students }) => {
 };
 
 const mapStateToProps = (state) => {
+  const allStudents = state.students;
+  const unregisteredStudents = state.students.filter(
+    (student) => student.campusId === null
+  );
+
+  const filterFunc = (state) => {
+    if (state.visFilter === 'SHOW_ALL') {
+      return allStudents;
+    }
+    if (state.visFilter === 'SHOW_UNREGISTERED') {
+      return unregisteredStudents;
+    }
+  };
   return {
-    students: state.students,
+    students: filterFunc(state),
   };
 };
 

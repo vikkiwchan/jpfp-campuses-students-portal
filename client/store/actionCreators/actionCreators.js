@@ -10,6 +10,7 @@ import {
   DELETE_STUDENT,
   UPDATE_STUDENT,
   UNREGISTER_STUDENT,
+  SET_VISIBILITY_FILTER,
 } from '../actionConstants/actions';
 
 export const loadCampuses = (campuses) => ({
@@ -65,4 +66,9 @@ export const _updateStudent = (student) => ({
 export const _unregisterStudent = (student) => ({
   type: UNREGISTER_STUDENT,
   student,
+});
+
+export const setVisibilityFilter = (visFilter) => ({
+  type: SET_VISIBILITY_FILTER,
+  visFilter,
 });

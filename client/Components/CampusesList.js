@@ -1,24 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import Campus from './Campus';
+import Filter from './Filter';
 
 const CampusesList = ({ campuses }) => {
-  const [filter, setFilter] = useState('show-all');
-  if (filter === 'no-registered-students') {
-    campuses = campuses.filter((campus) => !campus.students.length);
-  }
-
   return (
     <div>
       <h1>All Campuses</h1>
-      <select onChange={(event) => setFilter(event.target.value)}>
-        <option value='show-all'>Show All Campuses</option>
-        <option value='no-registered-students'>
-          Show Campuses w/o Registered Students
-        </option>
-      </select>
+      <Filter view='campuses' />
       <br />
       <Link to={'/campuses/add-campus'}>
         <button>Add Campus</button>
@@ -37,8 +28,22 @@ const CampusesList = ({ campuses }) => {
 };
 
 const mapStateToProps = (state) => {
+  const allCampuses = state.campuses;
+  const unregisteredCampuses = state.campuses.filter(
+    (campus) => !campus.students.length
+  );
+
+  const filterFunc = (state) => {
+    if (state.visFilter === 'SHOW_ALL') {
+      return allCampuses;
+    }
+    if (state.visFilter === 'SHOW_UNREGISTERED') {
+      return unregisteredCampuses;
+    }
+  };
+
   return {
-    campuses: state.campuses,
+    campuses: filterFunc(state),
   };
 };
 
