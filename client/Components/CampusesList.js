@@ -29,15 +29,16 @@ const CampusesList = ({ campuses }) => {
 
 const mapStateToProps = (state) => {
   const allCampuses = state.campuses;
-  const unregisteredCampuses = state.campuses.filter(
-    (campus) => !campus.students.length
-  );
+  const unregisteredCampuses = state.campuses.filter((campus) => {
+    const students = campus.students || [];
+    return !students.length;
+  });
 
   const filterFunc = (state) => {
-    if (state.visFilter === 'SHOW_ALL') {
+    if (state.visFilter.campuses === 'SHOW_ALL') {
       return allCampuses;
     }
-    if (state.visFilter === 'SHOW_UNREGISTERED') {
+    if (state.visFilter.campuses === 'SHOW_UNREGISTERED') {
       return unregisteredCampuses;
     }
   };

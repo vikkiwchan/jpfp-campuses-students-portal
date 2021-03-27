@@ -14,6 +14,7 @@ const Campus = ({ campus, students, campusProps, deleteCampus }) => {
   ) : (
     <></>
   );
+  students = students || {};
   return (
     <div className='card'>
       <img src={campus.imageUrl} />

@@ -1,74 +1,84 @@
-import {
-  LOAD_CAMPUSES,
-  CREATE_CAMPUS,
-  DELETE_CAMPUS,
-  UPDATE_CAMPUS,
-  SELECT_CAMPUS,
-  SELECT_STUDENT,
-  LOAD_STUDENTS,
-  CREATE_STUDENT,
-  DELETE_STUDENT,
-  UPDATE_STUDENT,
-  UNREGISTER_STUDENT,
-  SET_VISIBILITY_FILTER,
-} from '../actionConstants/actions';
+import actionTypes from '../actionConstants/actions';
 
-export const loadCampuses = (campuses) => ({
-  type: LOAD_CAMPUSES,
+const loadCampuses = (campuses) => ({
+  type: actionTypes.LOAD_CAMPUSES,
   campuses,
 });
 
-export const _createCampus = (campus) => ({
-  type: CREATE_CAMPUS,
+const _createCampus = (campus) => ({
+  type: actionTypes.CREATE_CAMPUS,
   campus,
 });
 
-export const _deleteCampus = (id) => ({
-  type: DELETE_CAMPUS,
+const _deleteCampus = (id) => ({
+  type: actionTypes.DELETE_CAMPUS,
   id,
 });
 
-export const _updateCampus = (campus) => ({
-  type: UPDATE_CAMPUS,
+const _updateCampus = (campus) => ({
+  type: actionTypes.UPDATE_CAMPUS,
   campus,
 });
 
-export const selectCampus = (campus) => ({
-  type: SELECT_CAMPUS,
+const selectCampus = (campus) => ({
+  type: actionTypes.SELECT_CAMPUS,
   campus,
 });
 
-export const selectStudent = (student) => ({
-  type: SELECT_STUDENT,
+const selectStudent = (student) => ({
+  type: actionTypes.SELECT_STUDENT,
   student,
 });
 
-export const loadStudents = (students) => ({
-  type: LOAD_STUDENTS,
+const loadStudents = (students) => ({
+  type: actionTypes.LOAD_STUDENTS,
   students,
 });
 
-export const _createStudent = (student) => ({
-  type: CREATE_STUDENT,
+const _createStudent = (student) => ({
+  type: actionTypes.CREATE_STUDENT,
   student,
 });
 
-export const _deleteStudent = (id) => ({
-  type: DELETE_STUDENT,
+const _deleteStudent = (id) => ({
+  type: actionTypes.DELETE_STUDENT,
   id,
 });
 
-export const _updateStudent = (student) => ({
-  type: UPDATE_STUDENT,
+const _updateStudent = (student) => ({
+  type: actionTypes.UPDATE_STUDENT,
   student,
 });
 
-export const _unregisterStudent = (student) => ({
-  type: UNREGISTER_STUDENT,
+const _unregisterStudent = (student) => ({
+  type: actionTypes.UNREGISTER_STUDENT,
   student,
 });
 
-export const setVisibilityFilter = (visFilter) => ({
-  type: SET_VISIBILITY_FILTER,
+const setVisibilityFilter = (visFilter) => ({
+  type: actionTypes.SET_VISIBILITY_FILTER,
   visFilter,
 });
+
+const _sortLastName = (students) => ({
+  type: actionTypes.SORT_LAST_NAME,
+  students,
+});
+
+const actionCreators = {
+  loadCampuses,
+  _createCampus,
+  _deleteCampus,
+  _updateCampus,
+  selectCampus,
+  selectStudent,
+  loadStudents,
+  _createStudent,
+  _deleteStudent,
+  _updateStudent,
+  _unregisterStudent,
+  setVisibilityFilter,
+  _sortLastName,
+};
+
+export default actionCreators;

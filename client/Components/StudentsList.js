@@ -4,12 +4,17 @@ import { Link } from 'react-router-dom';
 
 import Student from './Student';
 import Filter from './Filter';
+import { sortLastName } from '../store/thunks/thunks';
 
-const StudentsList = ({ students }) => {
+const StudentsList = ({ students, sortLastName }) => {
+  students = students || [];
   return (
     <>
       <h1>All Students</h1>
-      <Filter />
+      <Filter view='students' />
+      <div id='sort'>
+        <button onClick={sortLastName}>Sort By Last Name</button>
+      </div>
       <br />
       <Link to='/students/add-student'>
         <button>Add Student</button>
@@ -33,10 +38,10 @@ const mapStateToProps = (state) => {
   );
 
   const filterFunc = (state) => {
-    if (state.visFilter === 'SHOW_ALL') {
+    if (state.visFilter.students === 'SHOW_ALL') {
       return allStudents;
     }
-    if (state.visFilter === 'SHOW_UNREGISTERED') {
+    if (state.visFilter.students === 'SHOW_UNREGISTERED') {
       return unregisteredStudents;
     }
   };
@@ -45,4 +50,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(StudentsList);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    sortLastName: () => dispatch(sortLastName()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(StudentsList);

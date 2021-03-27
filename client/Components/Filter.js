@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setVisibilityFilter } from '../store/actionCreators/actionCreators';
+import actionCreators from '../store/actionCreators/actionCreators';
 
 const Filter = ({ filter, visFilter, view }) => {
   const label =
@@ -9,14 +9,14 @@ const Filter = ({ filter, visFilter, view }) => {
     <div id='filter'>
       <label>Currently showing:</label>
       <a
-        className={visFilter === 'SHOW_ALL' ? 'selected' : ''}
-        onClick={() => filter('SHOW_ALL')}
+        className={visFilter[view] === 'SHOW_ALL' ? 'selected' : ''}
+        onClick={() => filter({ [view]: 'SHOW_ALL' })}
       >
         All
       </a>
       <a
-        className={visFilter === 'SHOW_UNREGISTERED' ? 'selected' : ''}
-        onClick={() => filter('SHOW_UNREGISTERED')}
+        className={visFilter[view] === 'SHOW_UNREGISTERED' ? 'selected' : ''}
+        onClick={() => filter({ [view]: 'SHOW_UNREGISTERED' })}
       >
         {label}
       </a>
@@ -33,7 +33,8 @@ const mapStateToProps = (state, otherProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    filter: (visFilter) => dispatch(setVisibilityFilter(visFilter)),
+    filter: (visFilter) =>
+      dispatch(actionCreators.setVisibilityFilter(visFilter)),
   };
 };
 

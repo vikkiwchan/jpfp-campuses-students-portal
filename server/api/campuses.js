@@ -13,6 +13,19 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+//GET /api/campuses/sortByStudents
+router.get('/sortByStudents', async (req, res, next) => {
+  try {
+    const campuses = await Campus.findAll({
+      include: [{ model: Student }],
+    });
+    campuses.sort((a, b) => b.students.length - a.students.length);
+    res.status(201).send(campuses);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
 // POST /api/campuses
 router.post('/', async (req, res, next) => {
   try {

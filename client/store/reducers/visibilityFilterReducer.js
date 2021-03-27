@@ -1,12 +1,12 @@
-import { SET_VISIBILITY_FILTER } from '../actionConstants/actions';
+const initialState = {
+  campuses: 'SHOW_ALL',
+  students: 'SHOW_UNREGISTERED',
+};
 
-const SHOW_ALL = 'SHOW_ALL';
-const SHOW_UNREGISTERED = 'SHOW_UNREGISTERED';
-
-export default (state = SHOW_ALL, action) => {
+export default (state = initialState, action) => {
   switch (action.type) {
-    case SET_VISIBILITY_FILTER:
-      return action.visFilter;
+    case 'SET_VISIBILITY_FILTER':
+      return { ...state, ...action.visFilter };
     default:
       return state;
   }
