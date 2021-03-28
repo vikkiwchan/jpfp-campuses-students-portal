@@ -26,6 +26,8 @@ export default (state = [], action) => {
           return campus;
         }
       });
+    case 'SORT_CAMPUS_STUDENTS':
+      return action.campuses;
     default:
       return state;
   }

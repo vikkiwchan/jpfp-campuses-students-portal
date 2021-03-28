@@ -13,8 +13,8 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-//GET /api/campuses/sortByStudents
-router.get('/sortByStudents', async (req, res, next) => {
+//GET /api/campuses/sort/byStudents
+router.get('/sort/byStudents', async (req, res, next) => {
   try {
     const campuses = await Campus.findAll({
       include: [{ model: Student }],

@@ -137,8 +137,30 @@ export const unregisterStudent = (id, student) => {
 export const sortLastName = () => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get('/api/students/byLastName');
+      const { data } = await axios.get('/api/students/sort/byLastName');
       dispatch(actionCreators._sortLastName(data));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+};
+
+export const sortGpa = () => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get('/api/students/sort/byGpa');
+      dispatch(actionCreators._sortGpa(data));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+};
+
+export const sortCampusesByStudents = () => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get('/api/campuses/sort/byStudents');
+      dispatch(actionCreators._sortCampusesByStudents(data));
     } catch (err) {
       console.error(err);
     }

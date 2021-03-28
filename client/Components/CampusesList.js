@@ -4,12 +4,14 @@ import { Link } from 'react-router-dom';
 
 import Campus from './Campus';
 import Filter from './Filter';
+import SortCampuses from './SortCampuses';
 
 const CampusesList = ({ campuses }) => {
   return (
     <div>
       <h1>All Campuses</h1>
       <Filter view='campuses' />
+      <SortCampuses />
       <br />
       <Link to={'/campuses/add-campus'}>
         <button>Add Campus</button>

@@ -65,6 +65,16 @@ const _sortLastName = (students) => ({
   students,
 });
 
+const _sortGpa = (students) => ({
+  type: actionTypes.SORT_GPA,
+  students,
+});
+
+const _sortCampusesByStudents = (campuses) => ({
+  type: actionTypes.SORT_CAMPUS_STUDENTS,
+  campuses,
+});
+
 const actionCreators = {
   loadCampuses,
   _createCampus,
@@ -79,6 +89,8 @@ const actionCreators = {
   _unregisterStudent,
   setVisibilityFilter,
   _sortLastName,
+  _sortGpa,
+  _sortCampusesByStudents,
 };
 
 export default actionCreators;

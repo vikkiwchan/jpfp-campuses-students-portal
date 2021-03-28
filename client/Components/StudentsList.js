@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import Student from './Student';
 import Filter from './Filter';
-import { sortLastName } from '../store/thunks/thunks';
+import SortStudents from './SortStudents';
 
 const StudentsList = ({ students, sortLastName }) => {
   students = students || [];
@@ -12,9 +12,7 @@ const StudentsList = ({ students, sortLastName }) => {
     <>
       <h1>All Students</h1>
       <Filter view='students' />
-      <div id='sort'>
-        <button onClick={sortLastName}>Sort By Last Name</button>
-      </div>
+      <SortStudents />
       <br />
       <Link to='/students/add-student'>
         <button>Add Student</button>
@@ -50,10 +48,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    sortLastName: () => dispatch(sortLastName()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(StudentsList);
+export default connect(mapStateToProps)(StudentsList);

@@ -5,7 +5,6 @@ import { createStudent, updateStudent } from '../store/thunks/thunks';
 class AddEditStudent extends Component {
   constructor(props) {
     super(props);
-    console.log('-----> constructor: ', this.props);
     const {
       id,
       firstName,

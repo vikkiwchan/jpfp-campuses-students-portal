@@ -13,10 +13,20 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-// GET /api/students/sortByLastName
-router.get('/byLastName', async (req, res, next) => {
+// GET /api/students/sort/byLastName
+router.get('/sort/byLastName', async (req, res, next) => {
   try {
     const students = await Student.findAll({ order: [['lastName', 'ASC']] });
+    res.status(201).send(students);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+// GET /api/students/sort/byGpa
+router.get('/sort/byGpa', async (req, res, next) => {
+  try {
+    const students = await Student.findAll({ order: [['gpa', 'DESC']] });
     res.status(201).send(students);
   } catch (err) {
     console.error(err);

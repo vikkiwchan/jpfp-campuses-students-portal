@@ -26,6 +26,8 @@ export default (state = [], action) => {
       });
     case 'SORT_LAST_NAME':
       return action.students;
+    case 'SORT_GPA':
+      return action.students;
     default:
       return state;
   }
