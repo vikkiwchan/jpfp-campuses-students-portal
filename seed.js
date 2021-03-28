@@ -6,10 +6,7 @@ const faker = require('faker');
 
 const getRandomCampusId = () => {
   let randomNum = Math.floor(Math.random() * 104);
-  if (!randomNum) {
-    randomNum = 1;
-  }
-  return randomNum;
+  return !randomNum ? 1 : randomNum;
 };
 
 const syncAndSeed = async () => {
