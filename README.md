@@ -1,0 +1,7 @@
+- `npm install`
+- Create two databases:
+  - Development Database: `createdb students_campuses_db`
+  - Test Database: `createdb students_campuses_test`
+- `npm run test-dev` for test specs
+- `npm run seed` to seed database
+- `npm run start-dev` to start app
