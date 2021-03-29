@@ -1,6 +1,6 @@
 const initialState = {
   campuses: 'SHOW_ALL',
-  students: 'SHOW_UNREGISTERED',
+  students: 'SHOW_ALL',
 };
 
 export default (state = initialState, action) => {
