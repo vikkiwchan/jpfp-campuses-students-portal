@@ -10,6 +10,8 @@ import StudentsList from './StudentsList';
 import SingleStudent from './SingleStudent';
 import AddEditCampus from './AddEditCampus';
 import AddEditStudent from './AddEditStudent';
+import NoMatch from './NoMatch';
+import Home from './Home';
 
 class Main extends Component {
   componentDidMount() {
@@ -22,6 +24,7 @@ class Main extends Component {
         <div id='app'>
           <Nav />
           <Switch>
+            <Route exact path='/' component={Home} />
             <Route exact path='/campuses' component={CampusesList} />
             <Route
               exact
@@ -50,6 +53,7 @@ class Main extends Component {
               path='/students/:studentId'
               component={SingleStudent}
             />
+            <Route path='*' component={NoMatch} />
           </Switch>
         </div>
       </Router>
