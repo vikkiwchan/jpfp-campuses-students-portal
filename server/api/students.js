@@ -7,9 +7,9 @@ const {
 router.get('/', async (req, res, next) => {
   try {
     const students = await Student.findAll();
-    res.status(201).send(students);
+    res.send(students);
   } catch (err) {
-    console.error(err);
+    next(err);
   }
 });
 
@@ -17,9 +17,9 @@ router.get('/', async (req, res, next) => {
 router.get('/sort/byLastName', async (req, res, next) => {
   try {
     const students = await Student.findAll({ order: [['lastName', 'ASC']] });
-    res.status(201).send(students);
+    res.send(students);
   } catch (err) {
-    console.error(err);
+    next(err);
   }
 });
 
@@ -27,9 +27,9 @@ router.get('/sort/byLastName', async (req, res, next) => {
 router.get('/sort/byGpa', async (req, res, next) => {
   try {
     const students = await Student.findAll({ order: [['gpa', 'DESC']] });
-    res.status(201).send(students);
+    res.send(students);
   } catch (err) {
-    console.error(err);
+    next(err);
   }
 });
 
@@ -38,7 +38,7 @@ router.post('/', async (req, res, next) => {
   try {
     res.status(201).send(await Student.create(req.body));
   } catch (err) {
-    console.error(err);
+    next(err);
   }
 });
 
@@ -49,7 +49,7 @@ router.delete('/:studentId', async (req, res, next) => {
     await student.destroy();
     res.sendStatus(204);
   } catch (err) {
-    console.error(err);
+    next(err);
   }
 });
 
@@ -60,7 +60,7 @@ router.put('/:studentId', async (req, res, next) => {
     await student.update(req.body);
     res.status(201).send(student);
   } catch (err) {
-    console.error(err);
+    next(err);
   }
 });
 
@@ -70,9 +70,9 @@ router.get('/:studentId', async (req, res, next) => {
     const student = await Student.findByPk(req.params.studentId, {
       include: { model: Campus },
     });
-    res.status(201).send(student);
+    res.send(student);
   } catch (err) {
-    console.error(err);
+    next(err);
   }
 });
 

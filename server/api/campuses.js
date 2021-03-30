@@ -7,9 +7,9 @@ const {
 router.get('/', async (req, res, next) => {
   try {
     const campuses = await Campus.findAll({ include: [{ model: Student }] });
-    res.status(201).send(campuses);
+    res.send(campuses);
   } catch (err) {
-    console.error(err);
+    next(err);
   }
 });
 
@@ -20,9 +20,9 @@ router.get('/sort/byStudents', async (req, res, next) => {
       include: [{ model: Student }],
     });
     campuses.sort((a, b) => b.students.length - a.students.length);
-    res.status(201).send(campuses);
+    res.send(campuses);
   } catch (err) {
-    console.error(err);
+    next(err);
   }
 });
 
@@ -31,7 +31,7 @@ router.post('/', async (req, res, next) => {
   try {
     res.status(201).send(await Campus.create(req.body));
   } catch (err) {
-    console.error(err);
+    next(err);
   }
 });
 
@@ -42,7 +42,7 @@ router.delete('/:campusId', async (req, res, next) => {
     await campus.destroy();
     res.sendStatus(204);
   } catch (err) {
-    console.error(err);
+    next(err);
   }
 });
 
@@ -53,7 +53,7 @@ router.put('/:campusId', async (req, res, next) => {
     await campus.update(req.body);
     res.status(200).send(campus);
   } catch (err) {
-    console.error(err);
+    next(err);
   }
 });
 
@@ -63,9 +63,9 @@ router.get('/:campusId', async (req, res, next) => {
     const campus = await Campus.findByPk(req.params.campusId, {
       include: [{ model: Student }],
     });
-    res.status(201).send(campus);
+    res.send(campus);
   } catch (err) {
-    console.error(err);
+    next(err);
   }
 });
 

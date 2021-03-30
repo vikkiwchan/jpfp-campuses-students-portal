@@ -17,7 +17,11 @@ app.get('/', (req, res, next) => {
 // API routes
 app.use('/api', require('./api/index'));
 
-// Add error handlers
+//Error handler
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(err.status || 500).send({ message: err.message });
+});
 
 const init = async () => {
   try {
