@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { deleteCampus } from '../store/thunks/thunks';
+import Paper from '@material-ui/core/Paper';
 
 const Campus = ({ campus, students, campusProps, deleteCampus }) => {
   const buttonsView = campusProps.campusListView ? (
@@ -16,18 +17,20 @@ const Campus = ({ campus, students, campusProps, deleteCampus }) => {
   );
   students = students || {};
   return (
-    <div className='card'>
-      <img src={campus.imageUrl} />
-      <div>
-        <Link to={`/campuses/${campus.id}`} key={campus.id}>
-          <h2>{campus.name}</h2>
-        </Link>
-        <p>
-          {students.length ? `Students (${students.length})` : 'No students'}
-        </p>
-        {buttonsView}
+    <Paper>
+      <div className='card'>
+        <img src={campus.imageUrl} />
+        <div>
+          <Link to={`/campuses/${campus.id}`} key={campus.id}>
+            <h2>{campus.name}</h2>
+          </Link>
+          <p>
+            {students.length ? `Students (${students.length})` : 'No students'}
+          </p>
+          {buttonsView}
+        </div>
       </div>
-    </div>
+    </Paper>
   );
 };
 

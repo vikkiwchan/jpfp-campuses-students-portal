@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { deleteStudent, unregisterStudent } from '../store/thunks/thunks';
+import Paper from '@material-ui/core/Paper';
 
 const Student = ({ student, deleteStudent, campus, unregister }) => {
   campus = campus || {};
@@ -19,11 +20,15 @@ const Student = ({ student, deleteStudent, campus, unregister }) => {
   );
   return (
     <div className='grid-item-student'>
-      <img src={student.imageUrl} className='portrait' />
-      <Link to={`/students/${student.id}`} key={student.id}>
-        <h2>{student.fullName}</h2>
-      </Link>
-      {deleteOrUnregister}
+      <Paper>
+        <div className='grid-item-card'>
+          <img src={student.imageUrl} className='portrait' />
+          <Link to={`/students/${student.id}`} key={student.id}>
+            <h2>{student.fullName}</h2>
+          </Link>
+          {deleteOrUnregister}
+        </div>
+      </Paper>
     </div>
   );
 };

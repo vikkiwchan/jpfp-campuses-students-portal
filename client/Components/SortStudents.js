@@ -7,7 +7,9 @@ const SortStudents = ({ sortLastName, sortGpa }) => {
 
   return (
     <div id='sort'>
-      <label>Sort by:</label>
+      <label>
+        <strong>Sort by: </strong>
+      </label>
       <a
         className={selected.lastName}
         onClick={() => {
@@ -17,6 +19,7 @@ const SortStudents = ({ sortLastName, sortGpa }) => {
       >
         Last Name
       </a>
+      <a>{', '}</a>
       <a
         className={selected.gpa}
         onClick={() => {

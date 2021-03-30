@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 
 import Campus from './Campus';
 import Filter from './Filter';
@@ -14,7 +15,9 @@ const CampusesList = ({ campuses }) => {
       <SortCampuses />
       <br />
       <Link to={'/campuses/add-campus'}>
-        <button>Add Campus</button>
+        <Button variant='contained' color='primary'>
+          Add Campus
+        </Button>
       </Link>
       <div id='all-campuses' className='grid-container'>
         {campuses.map((campus) => (

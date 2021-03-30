@@ -7,7 +7,9 @@ const SortCampuses = ({ sortCampusesByStudents }) => {
 
   return (
     <div id='sort'>
-      <label>Sort by:</label>
+      <label>
+        <strong>Sort by: </strong>
+      </label>
       <a
         className={selected.sortCampusesByStudents}
         onClick={() => {

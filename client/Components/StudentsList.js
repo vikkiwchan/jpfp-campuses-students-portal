@@ -20,8 +20,8 @@ const StudentsList = ({ students, sortLastName }) => {
       <div id='all-students' className='grid-container'>
         {students.map((student) => (
           <Student
-            student={{ ...student, studentListView: true }}
             key={student.id}
+            student={{ ...student, studentListView: true }}
           />
         ))}
       </div>

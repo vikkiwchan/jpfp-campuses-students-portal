@@ -1,31 +1,35 @@
 body {
   font-family: 'Lato', sans-serif;
-  padding: 1rem;
+}
+
+#app {
+  margin: 1rem;
 }
 
 nav {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 2rem;
-  border: 3px solid black;
+  background-color: #f44336;
+  font-size: medium;
+}
+
+nav > * {
+  margin: 1rem;
 }
 
 .grid-container {
   display: flex;
   flex-wrap: wrap;
-  border: 3px solid black;
   justify-content: center;
 }
 
 .grid-item-campus {
   width: 500px;
-  border: 3px solid blue;
   margin: 10px;
 }
 
 .card {
   display: flex;
-  border: 3px solid red;
 }
 
 .card > * {
@@ -39,14 +43,17 @@ nav {
 
 .grid-item-student {
   width: 225px;
-  border: 3px solid blue;
   margin: 10px;
   display: flex;
   flex-direction: column;
   flex-flow: row-wrap;
 }
 
-.grid-item-student > * {
+.grid-item-card {
+  margin: 10px;
+}
+
+.grid-item-card > * {
   margin: 10px;
 }
 
@@ -67,7 +74,7 @@ img {
 }
 
 .selected {
-  background-color: midnightblue;
+  background-color: #e57373;
 }
 
 form {

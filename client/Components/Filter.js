@@ -7,13 +7,16 @@ const Filter = ({ filter, visFilter, view }) => {
     view === 'campuses' ? 'No Registered Students' : 'Unregistered to a Campus';
   return (
     <div id='filter'>
-      <label>Currently showing:</label>
+      <label>
+        <strong>Currently showing: </strong>
+      </label>
       <a
         className={visFilter[view] === 'SHOW_ALL' ? 'selected' : ''}
         onClick={() => filter({ [view]: 'SHOW_ALL' })}
       >
         All
       </a>
+      <a>{', '}</a>
       <a
         className={visFilter[view] === 'SHOW_UNREGISTERED' ? 'selected' : ''}
         onClick={() => filter({ [view]: 'SHOW_UNREGISTERED' })}

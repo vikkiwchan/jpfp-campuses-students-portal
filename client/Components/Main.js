@@ -21,8 +21,8 @@ class Main extends Component {
   render() {
     return (
       <Router>
+        <Nav />
         <div id='app'>
-          <Nav />
           <Switch>
             <Route exact path='/' component={Home} />
             <Route exact path='/campuses' component={CampusesList} />
