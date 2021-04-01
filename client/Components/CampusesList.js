@@ -8,6 +8,9 @@ import Filter from './Filter';
 import SortCampuses from './SortCampuses';
 
 const CampusesList = ({ campuses }) => {
+  if (!campuses.length) {
+    return '...loading campuses';
+  }
   return (
     <div>
       <h1>All Campuses</h1>

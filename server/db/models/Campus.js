@@ -5,6 +5,7 @@ const faker = require('faker');
 const Campus = db.define('campus', {
   name: {
     type: DataTypes.STRING,
+    unique: true,
     allowNull: false,
     validate: {
       notEmpty: true,

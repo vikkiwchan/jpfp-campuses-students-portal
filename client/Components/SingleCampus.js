@@ -12,6 +12,9 @@ class SingleCampus extends Component {
     const { campus, deleteCampus } = this.props;
     let { id, name, imageUrl, description, address, students } = campus;
     students = students || [];
+    if (!campus.id) {
+      return '... loading campus data';
+    }
     return (
       <div id='single-campus'>
         <div className='row-info'>

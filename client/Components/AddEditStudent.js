@@ -19,6 +19,7 @@ class AddEditStudent extends Component {
       email: id ? email : '',
       imageUrl: id ? imageUrl : '',
       gpa: id ? gpa : 0,
+      error: '',
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -41,8 +42,9 @@ class AddEditStudent extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  handleSubmit(e) {
+  async handleSubmit(e) {
     e.preventDefault();
+    //const {firstName, lastName, email, imageUrl, gpa} = this.state;
     if (this.props.location.pathname.includes('add')) {
       this.props.add(this.state, this.props.history);
     } else {

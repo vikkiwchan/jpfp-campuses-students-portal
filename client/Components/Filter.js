@@ -8,7 +8,7 @@ const Filter = ({ filter, visFilter, view }) => {
   return (
     <div id='filter'>
       <label>
-        <strong>Currently showing: </strong>
+        <strong>Currently showing:&nbsp;</strong>
       </label>
       <a
         className={visFilter[view] === 'SHOW_ALL' ? 'selected' : ''}

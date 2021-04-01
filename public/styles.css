@@ -1,5 +1,6 @@
 body {
   font-family: 'Lato', sans-serif;
+  font-size: 62.5%;
 }
 
 #app {
@@ -87,4 +88,8 @@ form input {
 form label {
   padding-top: 1.25rem;
   padding-bottom: 0.5rem;
+}
+
+.warning {
+  background-color: goldenrod;
 }

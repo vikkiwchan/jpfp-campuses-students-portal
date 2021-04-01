@@ -20,7 +20,7 @@ app.use('/api', require('./api/index'));
 //Error handler
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(err.status || 500).send({ message: err.message });
+  res.status(500).send({ error: err });
 });
 
 const init = async () => {

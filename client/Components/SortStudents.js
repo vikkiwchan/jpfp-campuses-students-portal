@@ -8,7 +8,7 @@ const SortStudents = ({ sortLastName, sortGpa }) => {
   return (
     <div id='sort'>
       <label>
-        <strong>Sort by: </strong>
+        <strong>Sort by:&nbsp;</strong>
       </label>
       <a
         className={selected.lastName}

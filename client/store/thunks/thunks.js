@@ -25,13 +25,9 @@ export const fetchStudents = () => {
 
 export const createCampus = (campus, history) => {
   return async (dispatch) => {
-    try {
-      const { data } = await axios.post('/api/campuses', campus);
-      dispatch(actionCreators._createCampus(data));
-      history.push('/campuses');
-    } catch (err) {
-      console.error(err);
-    }
+    const { data } = await axios.post('/api/campuses', campus);
+    dispatch(actionCreators._createCampus(data));
+    history.push('/campuses');
   };
 };
 

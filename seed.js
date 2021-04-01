@@ -108,7 +108,7 @@ const syncAndSeed = async () => {
     const randomCampuses = Array(100)
       .fill('')
       .map((elem) => ({
-        name: `New Campus ${Math.random().toFixed(3)}`,
+        name: `New Campus ${Math.random().toFixed(5)}`,
         address: `${faker.address.streetAddress()} ${faker.address.city()}, ${faker.address.state()} ${faker.address.zipCode()}`,
       }));
 

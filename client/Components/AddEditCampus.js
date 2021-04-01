@@ -11,6 +11,7 @@ class AddEditCampus extends Component {
       address: id ? address : '',
       description: id ? description : '',
       imageUrl: id ? imageUrl : '',
+      error: '',
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -32,10 +33,16 @@ class AddEditCampus extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  handleSubmit(e) {
+  async handleSubmit(e) {
     e.preventDefault();
+    const { name, address, description, imageUrl } = this.state;
     if (this.props.location.pathname.includes('add')) {
-      this.props.create(this.state);
+      try {
+        await this.props.create({ name, address, description, imageUrl });
+      } catch (err) {
+        console.log(err.response.data.error);
+        this.setState({ error: err.response.data.error.errors });
+      }
     } else {
       this.props.update(this.props.match.params.campusId, this.state);
     }
@@ -44,7 +51,7 @@ class AddEditCampus extends Component {
   render() {
     const pathname = this.props.location.pathname;
     const { handleInputChange, handleSubmit } = this;
-    const { name, address, description, imageUrl } = this.state;
+    const { name, address, description, imageUrl, error } = this.state;
     return (
       <div>
         <h2>
@@ -52,28 +59,58 @@ class AddEditCampus extends Component {
           Campus
         </h2>
         <form>
-          <label htmlFor='name'>Name</label>
+          {!!error &&
+            error.map((error, idx) => (
+              <p key={++idx} className='warning'>
+                {error.message}
+              </p>
+            ))}
+          <label htmlFor='name'>
+            Name&nbsp;
+            {name === '' ? <span className='warning'>Required Field</span> : ''}
+          </label>
           <input
             name='name'
             type='text'
             value={name}
             onChange={handleInputChange}
           />
-          <label htmlFor='address'>Address</label>
+          <label htmlFor='address'>
+            Address&nbsp;
+            {address === '' ? (
+              <span className='warning'>Required Field</span>
+            ) : (
+              ''
+            )}
+          </label>
           <input
             name='address'
             type='text'
             value={address}
             onChange={handleInputChange}
           />
-          <label htmlFor='description'>Description</label>
+          <label htmlFor='description'>
+            Description&nbsp;
+            {description === '' ? (
+              <span className='warning'>Required Field</span>
+            ) : (
+              ''
+            )}
+          </label>
           <textarea
             name='description'
             rows='5'
             value={description}
             onChange={handleInputChange}
           />
-          <label htmlFor='imageUrl'>Image Url</label>
+          <label htmlFor='imageUrl'>
+            Image Url&nbsp;
+            {imageUrl === '' ? (
+              <span className='warning'>Required Field</span>
+            ) : (
+              ''
+            )}
+          </label>
           <input
             name='imageUrl'
             type='text'
@@ -81,7 +118,18 @@ class AddEditCampus extends Component {
             onChange={handleInputChange}
           />
         </form>
-        <button id='submit-button' onClick={handleSubmit}>
+        <button
+          disabled={
+            name === '' ||
+            address === '' ||
+            description === '' ||
+            imageUrl === ''
+              ? true
+              : false
+          }
+          id='submit-button'
+          onClick={handleSubmit}
+        >
           Save
         </button>
       </div>

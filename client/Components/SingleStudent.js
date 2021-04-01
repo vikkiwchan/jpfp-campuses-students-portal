@@ -12,6 +12,9 @@ class SingleStudent extends Component {
     const { student, deleteStudent } = this.props;
     const { fullName, gpa, imageUrl, email, id } = student;
     const campus = this.props.student.campus || {};
+    if (!student.id) {
+      return '... loading student data';
+    }
     return (
       <div id='single-student'>
         <div className='row-info'>

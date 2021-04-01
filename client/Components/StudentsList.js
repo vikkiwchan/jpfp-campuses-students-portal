@@ -8,6 +8,9 @@ import SortStudents from './SortStudents';
 
 const StudentsList = ({ students, sortLastName }) => {
   students = students || [];
+  // if (!students.length) {
+  //   return '...loading students';
+  // }
   return (
     <>
       <h1>All Students</h1>
