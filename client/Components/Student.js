@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import { deleteStudent, unregisterStudent } from '../store/thunks/thunks';
 import Paper from '@material-ui/core/Paper';
 
-const Student = ({ student, deleteStudent, campus, unregister }) => {
-  campus = campus || {};
+const Student = ({ student, deleteStudent, unregister }) => {
+  student = student || {};
   const deleteOrUnregister = student.studentListView ? (
     <>
-      <p>{student.campusId ? campus.name : 'Unassigned to a campus'}</p>
+      <p>{student.campusId ? student.campus.name : 'Unassigned to a campus'}</p>
       <button onClick={() => deleteStudent(student.id)}>delete</button>
     </>
   ) : (
@@ -33,16 +33,6 @@ const Student = ({ student, deleteStudent, campus, unregister }) => {
   );
 };
 
-const mapStateToProps = (state, otherProps) => {
-  return {
-    campus:
-      state.campuses.find(
-        (campus) => campus.id === otherProps.student.campusId
-      ) || {},
-    students: state.students,
-  };
-};
-
 const mapDispatchToProps = (dispatch) => {
   return {
     deleteStudent: (id) => dispatch(deleteStudent(id)),
@@ -50,4 +40,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Student);
+export default connect(null, mapDispatchToProps)(Student);

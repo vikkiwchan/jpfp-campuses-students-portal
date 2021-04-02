@@ -4,10 +4,27 @@ const {
 } = require('../db/index');
 
 // GET /api/campuses
+// router.get('/', async (req, res, next) => {
+//   try {
+//     const campuses = await Campus.findAll({ include: [{ model: Student }] });
+//     res.send(campuses);
+//   } catch (err) {
+//     next(err);
+//   }
+// });
+
+// TEST
 router.get('/', async (req, res, next) => {
   try {
-    const campuses = await Campus.findAll({ include: [{ model: Student }] });
-    res.send(campuses);
+    let { page } = req.query;
+    --page;
+    const data = await Campus.findAndCountAll({
+      distinct: true,
+      limit: 10,
+      offset: 10 * page,
+      include: Student,
+    });
+    res.send(data);
   } catch (err) {
     next(err);
   }

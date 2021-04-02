@@ -1,11 +1,12 @@
 import axios from 'axios';
 import actionCreators from '../actionCreators/actionCreators';
 
-export const fetchCampuses = () => {
+export const fetchCampuses = (id) => {
+  id = id || 1;
   return async (dispatch) => {
     try {
-      const { data } = await axios.get('/api/campuses');
-      dispatch(actionCreators.loadCampuses(data));
+      const { rows } = (await axios.get(`/api/campuses?page=${id}`)).data;
+      dispatch(actionCreators.loadCampuses(rows));
     } catch (err) {
       console.error(err);
     }

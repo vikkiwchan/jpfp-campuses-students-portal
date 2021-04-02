@@ -6,7 +6,7 @@ import Student from './Student';
 import Filter from './Filter';
 import SortStudents from './SortStudents';
 
-const StudentsList = ({ students, sortLastName }) => {
+const StudentsList = ({ students }) => {
   students = students || [];
   // if (!students.length) {
   //   return '...loading students';

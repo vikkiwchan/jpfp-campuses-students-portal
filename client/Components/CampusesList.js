@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import Campus from './Campus';
 import Filter from './Filter';
 import SortCampuses from './SortCampuses';
+import Footer from './Footer';
 
 const CampusesList = ({ campuses }) => {
   if (!campuses.length) {
@@ -31,12 +32,13 @@ const CampusesList = ({ campuses }) => {
           </div>
         ))}
       </div>
+      <Footer />
     </div>
   );
 };
 
 const mapStateToProps = (state) => {
-  const allCampuses = state.campuses;
+  const allCampuses = state.campuses || [];
   const unregisteredCampuses = state.campuses.filter((campus) => {
     const students = campus.students || [];
     return !students.length;
