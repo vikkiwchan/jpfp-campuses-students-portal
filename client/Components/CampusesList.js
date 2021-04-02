@@ -26,9 +26,7 @@ const CampusesList = ({ campuses }) => {
       <div id='all-campuses' className='grid-container'>
         {campuses.map((campus) => (
           <div className='grid-item-campus' key={campus.id}>
-            <Campus
-              campusProps={{ campusId: campus.id, campusListView: true }}
-            />
+            <Campus campus={{ ...campus, campusListView: true }} />
           </div>
         ))}
       </div>

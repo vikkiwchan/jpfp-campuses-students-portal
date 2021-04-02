@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { fetchCampus, deleteCampus } from '../store/thunks/thunks';
 import { Link } from 'react-router-dom';
 import Student from './Student';
+import NotFound from './NotFound';
 
 class SingleCampus extends Component {
   componentDidMount() {
@@ -12,8 +13,9 @@ class SingleCampus extends Component {
     const { campus, deleteCampus } = this.props;
     let { id, name, imageUrl, description, address, students } = campus;
     students = students || [];
+
     if (!campus.id) {
-      return '... loading campus data';
+      return <NotFound />;
     }
     return (
       <div id='single-campus'>

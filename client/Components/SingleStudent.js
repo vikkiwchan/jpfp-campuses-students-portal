@@ -1,20 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchStudent, deleteStudent } from '../store/thunks/thunks';
+import {
+  fetchStudent,
+  deleteStudent,
+  fetchCampus,
+} from '../store/thunks/thunks';
 import Campus from './Campus';
+import NotFound from './NotFound';
 
 class SingleStudent extends Component {
   componentDidMount() {
     this.props.fetchStudent(this.props.match.params.studentId);
+    this.props.fetchCampus(this.props.student.campusId);
   }
   render() {
-    const { student, deleteStudent } = this.props;
+    const { student, deleteStudent, campus } = this.props;
     const { fullName, gpa, imageUrl, email, id } = student;
-    const campus = this.props.student.campus || {};
+
     if (!student.id) {
-      return '... loading student data';
+      return <NotFound />;
     }
+
     return (
       <div id='single-student'>
         <div className='row-info'>
@@ -32,9 +39,7 @@ class SingleStudent extends Component {
         {campus.id ? (
           <>
             <p>This student is registered at {campus.name}</p>
-            <Campus
-              campusProps={{ campusId: campus.id, campusListView: false }}
-            />
+            <Campus campus={{ ...campus, campusListView: false }} />
           </>
         ) : (
           <p>This student is not registered to a campus yet</p>
@@ -47,11 +52,14 @@ class SingleStudent extends Component {
 const mapStateToProps = (state) => {
   return {
     student: state.student,
+    campus: state.campus,
   };
 };
+
 const mapDispatchToProps = (dispatch, { history }) => {
   return {
     fetchStudent: (id) => dispatch(fetchStudent(id)),
+    fetchCampus: (id) => dispatch(fetchCampus(id)),
     deleteStudent: (id) => dispatch(deleteStudent(id, history)),
   };
 };

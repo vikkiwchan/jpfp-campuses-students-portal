@@ -48,16 +48,13 @@ nav > * {
   height: 25rem;
   display: flex;
   padding: 1rem;
-
-  /* overflow: auto; */
 }
 
 .grid-item-card {
   margin: 1rem;
-  /* overflow: auto; */
 }
 
-img {
+#campus-card-img {
   width: 15rem;
   height: 10rem;
   object-fit: cover;

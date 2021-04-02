@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { deleteCampus } from '../store/thunks/thunks';
 import Paper from '@material-ui/core/Paper';
 
-const Campus = ({ campus, students, campusProps, deleteCampus }) => {
-  const buttonsView = campusProps.campusListView ? (
+const Campus = ({ campus, deleteCampus }) => {
+  const buttonsView = campus.campusListView ? (
     <div>
       <Link to={`/campuses/edit-campus/${campus.id}`}>
         <button>edit</button>
@@ -15,17 +15,18 @@ const Campus = ({ campus, students, campusProps, deleteCampus }) => {
   ) : (
     <></>
   );
-  students = students || {};
   return (
     <Paper>
       <div className='card'>
-        <img src={campus.imageUrl} />
+        <img id='campus-card-img' src={campus.imageUrl} />
         <div>
           <Link to={`/campuses/${campus.id}`} key={campus.id}>
             <h2>{campus.name}</h2>
           </Link>
           <p>
-            {students.length ? `Students (${students.length})` : 'No students'}
+            {campus.students
+              ? `Students (${campus.students.length})`
+              : 'No students'}
           </p>
           {buttonsView}
         </div>
@@ -36,13 +37,7 @@ const Campus = ({ campus, students, campusProps, deleteCampus }) => {
 
 const mapStateToProps = (state, otherProps) => {
   return {
-    campus:
-      state.campuses.find(
-        (campus) => campus.id === otherProps.campusProps.campusId
-      ) || {},
-    students: state.students.filter(
-      (student) => student.campusId === otherProps.campusProps.campusId
-    ),
+    campus: otherProps.campus,
   };
 };
 

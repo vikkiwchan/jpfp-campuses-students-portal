@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const {
+  db,
   models: { Campus, Student },
 } = require('../db/index');
 
@@ -30,6 +31,36 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.get('/sortByStudents', async (req, res, next) => {
+  let { page } = req.query;
+  --page;
+  try {
+    const data = await Campus.findAndCountAll({
+      distinct: true,
+      include: Student,
+      attributes: {
+        include: [
+          [
+            db.literal(`(
+              SELECT COUNT(*)
+              FROM students AS student
+              WHERE
+                student."campusId" = campus.id
+              )`),
+            'studentcount',
+          ],
+        ],
+      },
+      order: [[db.literal('studentcount'), 'DESC']],
+      limit: 10,
+      offset: 10 * page,
+    });
+    res.send(data);
+  } catch (err) {
+    next(err);
+  }
+});
+
 //GET /api/campuses/sort/byStudents
 router.get('/sort/byStudents', async (req, res, next) => {
   try {
@@ -38,35 +69,6 @@ router.get('/sort/byStudents', async (req, res, next) => {
     });
     campuses.sort((a, b) => b.students.length - a.students.length);
     res.send(campuses);
-  } catch (err) {
-    next(err);
-  }
-});
-
-// PAGINATION VERSION
-router.get('/sortByStudents', async (req, res, next) => {
-  try {
-    let { page } = req.query;
-    --page;
-    const data = await Campus.findAndCountAll({
-      distinct: true,
-      limit: 10,
-      offset: 10 * page,
-      include: {
-        model: Student,
-      },
-      attributes: [
-        'Campus.students',
-        [
-          sequelize.literal(
-            '(SELECT COUNT(*) FROM campuses WHERE Campus.students)'
-          ),
-          'StudentCount',
-        ],
-      ],
-      order: [[sequelize.literal('StudentCount'), 'DESC']],
-    });
-    res.send(data);
   } catch (err) {
     next(err);
   }
@@ -116,24 +118,3 @@ router.get('/:campusId', async (req, res, next) => {
 });
 
 module.exports = router;
-
-// PAGINATION VERSION
-// router.get('/sortByStudents', async (req, res, next) => {
-//   try {
-//     let { page } = req.query;
-//     --page;
-//     const data = await Campus.findAndCountAll({
-//       distinct: true,
-//       limit: 10,
-//       offset: 10 * page,
-//       include: Student,
-//       attributes: {
-//         include: [[fn('COUNT', col('Campus.students'), 'studentCount']]
-//       },
-//       order: [['studentCount', 'DESC']],
-//     });
-//     res.send(data);
-//   } catch (err) {
-//     next(err);
-//   }
-// });

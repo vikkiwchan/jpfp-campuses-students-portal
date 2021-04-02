@@ -23,6 +23,10 @@ app.use((err, req, res, next) => {
   res.status(500).send({ error: err });
 });
 
+app.use((req, res) => {
+  res.status(404).send('does not exist');
+});
+
 const init = async () => {
   try {
     const port = process.env.PORT || 3000;
