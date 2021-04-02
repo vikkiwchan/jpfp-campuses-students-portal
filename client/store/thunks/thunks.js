@@ -82,13 +82,9 @@ export const fetchStudent = (id) => {
 
 export const createStudent = (student, history) => {
   return async (dispatch) => {
-    try {
-      const { data } = await axios.post('/api/students', student);
-      dispatch(actionCreators._createStudent(data));
-      history.push('/students');
-    } catch (err) {
-      console.error(err);
-    }
+    const { data } = await axios.post('/api/students', student);
+    dispatch(actionCreators._createStudent(data));
+    history.push('/students');
   };
 };
 

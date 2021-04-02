@@ -44,38 +44,78 @@ class AddEditStudent extends Component {
 
   async handleSubmit(e) {
     e.preventDefault();
-    //const {firstName, lastName, email, imageUrl, gpa} = this.state;
-    if (this.props.location.pathname.includes('add')) {
-      this.props.add(this.state, this.props.history);
+    const { firstName, lastName, email, imageUrl, gpa } = this.state;
+    const {
+      location: { pathname },
+      match: {
+        params: { studentId },
+      },
+      history,
+      add,
+      edit,
+    } = this.props;
+    if (pathname.includes('add')) {
+      try {
+        await add({ firstName, lastName, email, imageUrl, gpa }, history);
+      } catch (err) {
+        console.log(err.response.data.error);
+        this.setState({ error: err.response.data.error.errors });
+      }
     } else {
-      this.props.edit(this.props.match.params.studentId, this.state);
+      edit(studentId, { firstName, lastName, email, imageUrl, gpa });
     }
   }
 
   render() {
+    const { path } = this.props.match;
     const { handleInputChange, handleSubmit } = this;
-    const { firstName, lastName, email, imageUrl, gpa } = this.state;
+    const { firstName, lastName, email, imageUrl, gpa, error } = this.state;
     return (
       <div>
-        <h2>
-          {this.props.match.path.includes('add') ? 'Add ' : 'Edit '}Student
-        </h2>
+        <h2>{path.includes('add') ? 'Add ' : 'Edit '}Student</h2>
         <form>
-          <label htmlFor='firstName'>First Name</label>
+          {error !== '' &&
+            error.map((error, idx) => (
+              <div key={++idx}>
+                <span className='warning'>{error.message}</span>
+              </div>
+            ))}
+          <label htmlFor='firstName'>
+            First Name&nbsp;
+            {firstName === '' ? (
+              <span className='warning'>Required Field</span>
+            ) : (
+              ''
+            )}
+          </label>
           <input
             name='firstName'
             type='text'
             value={firstName}
             onChange={handleInputChange}
           />
-          <label htmlFor='lasttName'>Last Name</label>
+          <label htmlFor='lastName'>
+            Last Name&nbsp;
+            {lastName === '' ? (
+              <span className='warning'>Required Field</span>
+            ) : (
+              ''
+            )}
+          </label>
           <input
             name='lastName'
             type='text'
             value={lastName}
             onChange={handleInputChange}
           />
-          <label htmlFor='email'>Email</label>
+          <label htmlFor='email'>
+            Email&nbsp;
+            {email === '' ? (
+              <span className='warning'>Required Field</span>
+            ) : (
+              ''
+            )}
+          </label>
           <input
             name='email'
             type='text'
@@ -89,7 +129,14 @@ class AddEditStudent extends Component {
             value={gpa}
             onChange={handleInputChange}
           />
-          <label htmlFor='imageUrl'>Image URL</label>
+          <label htmlFor='imageUrl'>
+            Image URL&nbsp;
+            {imageUrl === '' ? (
+              <span className='warning'>Required Field</span>
+            ) : (
+              ''
+            )}
+          </label>
           <input
             name='imageUrl'
             type='text'
@@ -97,7 +144,19 @@ class AddEditStudent extends Component {
             onChange={handleInputChange}
           />
         </form>
-        <button onClick={handleSubmit}>Save</button>
+        <button
+          disabled={
+            firstName === '' ||
+            lastName === '' ||
+            email === '' ||
+            imageUrl === ''
+              ? true
+              : false
+          }
+          onClick={handleSubmit}
+        >
+          Save
+        </button>
       </div>
     );
   }

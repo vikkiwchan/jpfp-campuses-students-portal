@@ -37,4 +37,32 @@ Campus.beforeSave((campus) => {
   }
 });
 
+// Campus.sortByStudents = (page) => {
+//   return this.findAndCountAll({
+//     distinct: true,
+//     limit: 10,
+//     offset: 10 * page,
+//     include: Student,
+//   });
+// };
+
 module.exports = Campus;
+
+// let { page } = req.query;
+// --page;
+// const data = await Campus.findAndCountAll({
+//   distinct: true,
+//   limit: 10,
+//   offset: 10 * page,
+//   include: [
+//     {
+//       model: Student,
+//       attributes: {
+//         include: [
+//           [sequelize.fn('COUNT', sequelize.col('id')), 'n_students'],
+//         ],
+//       },
+//       // order: [['n_students', 'DESC']],
+//     },
+//   ],
+// });

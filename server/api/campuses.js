@@ -43,6 +43,35 @@ router.get('/sort/byStudents', async (req, res, next) => {
   }
 });
 
+// PAGINATION VERSION
+router.get('/sortByStudents', async (req, res, next) => {
+  try {
+    let { page } = req.query;
+    --page;
+    const data = await Campus.findAndCountAll({
+      distinct: true,
+      limit: 10,
+      offset: 10 * page,
+      include: {
+        model: Student,
+      },
+      attributes: [
+        'Campus.students',
+        [
+          sequelize.literal(
+            '(SELECT COUNT(*) FROM campuses WHERE Campus.students)'
+          ),
+          'StudentCount',
+        ],
+      ],
+      order: [[sequelize.literal('StudentCount'), 'DESC']],
+    });
+    res.send(data);
+  } catch (err) {
+    next(err);
+  }
+});
+
 // POST /api/campuses
 router.post('/', async (req, res, next) => {
   try {
@@ -87,3 +116,24 @@ router.get('/:campusId', async (req, res, next) => {
 });
 
 module.exports = router;
+
+// PAGINATION VERSION
+// router.get('/sortByStudents', async (req, res, next) => {
+//   try {
+//     let { page } = req.query;
+//     --page;
+//     const data = await Campus.findAndCountAll({
+//       distinct: true,
+//       limit: 10,
+//       offset: 10 * page,
+//       include: Student,
+//       attributes: {
+//         include: [[fn('COUNT', col('Campus.students'), 'studentCount']]
+//       },
+//       order: [['studentCount', 'DESC']],
+//     });
+//     res.send(data);
+//   } catch (err) {
+//     next(err);
+//   }
+// });

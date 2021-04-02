@@ -15,7 +15,7 @@ const StudentsList = ({ students }) => {
     <>
       <h1>All Students</h1>
       <Filter view='students' />
-      <SortStudents />
+      {/* <SortStudents /> */}
       <br />
       <Link to='/students/add-student'>
         <button>Add Student</button>

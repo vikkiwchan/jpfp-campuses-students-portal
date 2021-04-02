@@ -49,7 +49,7 @@ class AddEditCampus extends Component {
   }
 
   render() {
-    const pathname = this.props.location.pathname;
+    const { pathname } = this.props.location;
     const { handleInputChange, handleSubmit } = this;
     const { name, address, description, imageUrl, error } = this.state;
     return (
@@ -59,11 +59,11 @@ class AddEditCampus extends Component {
           Campus
         </h2>
         <form>
-          {!!error &&
+          {error !== '' &&
             error.map((error, idx) => (
-              <p key={++idx} className='warning'>
-                {error.message}
-              </p>
+              <div key={++idx}>
+                <span className='warning'>{error.message}</span>
+              </div>
             ))}
           <label htmlFor='name'>
             Name&nbsp;
