@@ -13,7 +13,7 @@ const Campus = db.define('campus', {
   imageUrl: {
     type: DataTypes.STRING,
     defaultValue:
-      'https://libraries.usc.edu/sites/default/files/styles/16_9_xlarge/public/2019-08/dml-front.jpg?itok=uML3Op66',
+      'https://patch.com/img/cdn20/users/23539314/20210219/082606/styles/patch_image/public/patch-editorial-usc-uni-ca-ludwig___19202511239.jpg',
   },
   address: {
     type: DataTypes.STRING,
@@ -33,7 +33,7 @@ Campus.beforeCreate((campus) => {
   }
   if (!campus.imageUrl || campus.imageUrl === '') {
     campus.imageUrl =
-      'https://libraries.usc.edu/sites/default/files/styles/16_9_xlarge/public/2019-08/dml-front.jpg?itok=uML3Op66';
+      'https://patch.com/img/cdn20/users/23539314/20210219/082606/styles/patch_image/public/patch-editorial-usc-uni-ca-ludwig___19202511239.jpg';
   }
 });
 

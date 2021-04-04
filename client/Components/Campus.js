@@ -13,7 +13,7 @@ const Campus = ({ campus, deleteCampus }) => {
         <img id='campus-card-img' src={campus.imageUrl} />
         <div>
           <Link to={`/campuses/${campus.id}`} key={campus.id}>
-            <h2>{campus.name}</h2>
+            <h3>{campus.name}</h3>
           </Link>
           <p>
             {campus.students

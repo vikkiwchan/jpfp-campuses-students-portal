@@ -53,11 +53,11 @@ class AddEditCampus extends Component {
     const { handleInputChange, handleSubmit } = this;
     const { name, address, description, imageUrl, error } = this.state;
     return (
-      <div>
-        <h2>
+      <div className='component-container'>
+        <h1>
           {pathname.includes('add') ? 'Add ' : 'Edit '}
           Campus
-        </h2>
+        </h1>
         <form>
           {error !== '' &&
             error.map((error, idx) => (
@@ -105,11 +105,11 @@ class AddEditCampus extends Component {
           />
         </form>
         <button
+          id='save-button'
           disabled={name === '' || address === '' ? true : false}
-          id='submit-button'
           onClick={handleSubmit}
         >
-          Save
+          save
         </button>
       </div>
     );

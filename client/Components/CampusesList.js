@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
+import { Button, Box } from '@material-ui/core';
 import { Pagination } from '@material-ui/lab';
 
 import Campus from './Campus';
@@ -45,40 +45,46 @@ const CampusesList = ({ campuses, fetchCampuses }) => {
   return (
     <div>
       <h1>All Campuses</h1>
-      <div id='campuses-visFilter'>
-        <label>
-          <strong>Currently showing:&nbsp;</strong>
-        </label>
-        <a
-          className={visFilter === 'SHOW_ALL' ? 'selected' : ''}
-          onClick={() => handleClick('SHOW_ALL')}
-        >
-          All
-        </a>
-        <span>,&nbsp;</span>
-        <a
-          className={visFilter === 'SHOW_BY_STUDENTCOUNT' ? 'selected' : ''}
-          onClick={() => handleClick('SHOW_BY_STUDENTCOUNT')}
-        >
-          Sort By Number of Registered Students
-        </a>
-        <br />
-        <label>
-          <strong>Filter:&nbsp;</strong>
-        </label>
-        <a
-          className={visFilter === 'SHOW_UNREGISTERED' ? 'selected' : ''}
-          onClick={() => handleClick('SHOW_UNREGISTERED')}
-        >
-          Unregistered to a Campus
-        </a>
+      <div className='filter-control'>
+        <div className='showing'>
+          <label>
+            <strong>Currently showing&nbsp;</strong>
+          </label>
+          <a> | </a>
+          <a
+            className={visFilter === 'SHOW_ALL' ? 'selected' : ''}
+            onClick={() => handleClick('SHOW_ALL')}
+          >
+            All
+          </a>
+          <a> | </a>
+          <a
+            className={visFilter === 'SHOW_BY_STUDENTCOUNT' ? 'selected' : ''}
+            onClick={() => handleClick('SHOW_BY_STUDENTCOUNT')}
+          >
+            Sort By Number of Registered Students
+          </a>
+        </div>
+        <div className='filter'>
+          <label>
+            <strong>Filter&nbsp;</strong>
+          </label>
+          <a> | </a>
+          <a
+            className={visFilter === 'SHOW_UNREGISTERED' ? 'selected' : ''}
+            onClick={() => handleClick('SHOW_UNREGISTERED')}
+          >
+            No Registered Students
+          </a>
+        </div>
+        <div className='primary-button'>
+          <Link to={'/campuses/add-campus'}>
+            <Button variant='contained' color='primary' size='large'>
+              Add Campus
+            </Button>
+          </Link>
+        </div>
       </div>
-      <br />
-      <Link to={'/campuses/add-campus'}>
-        <Button variant='contained' color='primary'>
-          Add Campus
-        </Button>
-      </Link>
       <div id='all-campuses' className='grid-container'>
         {campuses.map((campus) => (
           <div className='grid-item-campus' key={campus.id}>
@@ -86,13 +92,16 @@ const CampusesList = ({ campuses, fetchCampuses }) => {
           </div>
         ))}
       </div>
-      <Pagination
-        count={count}
-        page={page}
-        onChange={handleChange}
-        shape='rounded'
-        color='primary'
-      />
+      <Box display='flex' justifyContent='center'>
+        <Pagination
+          count={count}
+          page={page}
+          onChange={handleChange}
+          shape='rounded'
+          color='primary'
+          justify='center'
+        />
+      </Box>
     </div>
   );
 };

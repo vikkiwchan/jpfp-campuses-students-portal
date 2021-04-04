@@ -28,15 +28,11 @@ class SingleCampus extends Component {
       return <NotFound />;
     }
     return (
-      <div id='single-campus'>
-        <div className='row-info'>
-          <img src={imageUrl} />
-          <div>
-            <h2>{name}</h2>
-            <p>{description}</p>
-          </div>
-        </div>
-        <div className='row-info'>
+      <div className='component-container'>
+        <div className='body-info'>
+          <img className='single-view' src={imageUrl} />
+          <h1>{name}</h1>
+          <p>{description}</p>
           <p>{address}</p>
           <div className='button-set'>
             <div className='left-button'>
@@ -59,7 +55,7 @@ class SingleCampus extends Component {
           </div>
         </div>
         <div>
-          <h3>Students on Campus</h3>
+          <h2>Students on Campus</h2>
           <div id='all-students' className='grid-container'>
             {students.length === 0 ? (
               <p>No students are registered to this campus</p>

@@ -41,42 +41,42 @@ class SingleStudent extends Component {
       return <NotFound />;
     }
     return (
-      <div id='single-student'>
-        <div className='row-info'>
-          <img src={imageUrl} />
-          <div>
-            <h2>{fullName}</h2>
+      <div className='component-container'>
+        <div className='body-info'>
+          <img className='single-view' src={imageUrl} />
+          <h1>{fullName}</h1>
+          <div className='personal-info'>
             <p>{email}</p>
             <p>GPA: {gpa}</p>
-            <div className='button-set'>
-              <div className='left-button'>
-                <Button variant='contained' color='primary' size='medium'>
-                  <Link to={`/students/edit-student/${id}`}>edit</Link>
-                </Button>
-              </div>
-              <div className='right-button'>
-                <Button
-                  variant='contained'
-                  color='primary'
-                  size='medium'
-                  onClick={() => {
-                    deleteStudent(id);
-                  }}
-                >
-                  delete
-                </Button>
-              </div>
+          </div>
+          <div className='button-set'>
+            <div className='left-button'>
+              <Button variant='contained' color='primary' size='medium'>
+                <Link to={`/students/edit-student/${id}`}>edit</Link>
+              </Button>
+            </div>
+            <div className='right-button'>
+              <Button
+                variant='contained'
+                color='primary'
+                size='medium'
+                onClick={() => {
+                  deleteStudent(id);
+                }}
+              >
+                delete
+              </Button>
             </div>
           </div>
+          {student.campusId ? (
+            <>
+              <p>This student is registered at {student.campus.name}</p>
+              <Campus campus={{ ...campus, campusListView: false }} />
+            </>
+          ) : (
+            <p>This student is not registered to a campus yet</p>
+          )}
         </div>
-        {student.campusId ? (
-          <>
-            <p>This student is registered at {student.campus.name}</p>
-            <Campus campus={{ ...campus, campusListView: false }} />
-          </>
-        ) : (
-          <p>This student is not registered to a campus yet</p>
-        )}
       </div>
     );
   }

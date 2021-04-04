@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createStudent, updateStudent } from '../store/thunks/thunks';
+import Button from '@material-ui/core/Button';
 
 class AddEditStudent extends Component {
   constructor(props) {
@@ -71,8 +72,8 @@ class AddEditStudent extends Component {
     const { handleInputChange, handleSubmit } = this;
     const { firstName, lastName, email, imageUrl, gpa, error } = this.state;
     return (
-      <div>
-        <h2>{path.includes('add') ? 'Add ' : 'Edit '}Student</h2>
+      <div className='component-container'>
+        <h1>{path.includes('add') ? 'Add ' : 'Edit '}Student</h1>
         <form>
           {error !== '' &&
             error.map((error, idx) => (
@@ -138,12 +139,13 @@ class AddEditStudent extends Component {
           />
         </form>
         <button
+          id='save-button'
           disabled={
             firstName === '' || lastName === '' || email === '' ? true : false
           }
           onClick={handleSubmit}
         >
-          Save
+          save
         </button>
       </div>
     );

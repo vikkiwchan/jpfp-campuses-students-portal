@@ -39,7 +39,7 @@ const Student = ({ student, deleteStudent, unregister }) => {
         <div className='grid-item-card'>
           <img src={student.imageUrl} className='portrait' />
           <Link to={`/students/${student.id}`} key={student.id}>
-            <h2>{student.fullName}</h2>
+            <h3>{student.fullName}</h3>
           </Link>
           {deleteOrUnregister}
         </div>

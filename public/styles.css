@@ -1,21 +1,59 @@
 body {
   font-family: 'Lato', sans-serif;
   font-size: 62.5%;
+  background-color: honeydew;
 }
 
-#app {
-  margin: 1rem;
+.body-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.body-info > * {
+  justify-content: center;
+  padding: 0rem 5rem 0rem 5rem;
+}
+
+.personal-info > * {
+  text-align: center;
+  font-size: 1rem;
+}
+
+.single-view {
+  display: block;
+  padding-top: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30rem;
+}
+
+h1 {
+  text-align: center;
+  font-size: 3rem;
+}
+
+h2 {
+  text-align: center;
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+.component-container {
+  margin: 1.5rem;
 }
 
 nav {
   display: flex;
   justify-content: space-between;
   background-color: #f44336;
-  font-size: medium;
+  font-size: 1.25rem;
 }
 
 nav > * {
-  margin: 1rem;
+  margin: 1rem 1.5rem 1rem 1.5rem;
 }
 
 .grid-container {
@@ -90,11 +128,6 @@ form label {
   display: flex;
 }
 
-.home-button-set {
-  display: flex;
-  justify-content: center;
-}
-
 .left-button {
   padding-right: 0.25rem;
 }
@@ -103,22 +136,50 @@ form label {
   padding-left: 0.25rem;
 }
 
-h1 {
-  text-align: center;
-}
-
 .home-container {
   display: flex;
 }
 
-.home-container > * {
+.home-button-set {
+  display: flex;
   justify-content: center;
+  padding-bottom: 3rem;
 }
 
-#home {
+#home-title {
+  font-size: 5rem;
+  line-height: 6rem;
+}
+
+#home-emoji {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 65%;
-  padding: 2rem;
+  width: 10rem;
+}
+
+.filter-control {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.filter-control > * {
+  padding: 0.25rem;
+}
+
+.primary-button {
+  padding: 1rem;
+}
+
+#save-button {
+  padding: 0.5rem;
+  margin-top: 2rem;
+  font-size: 1rem;
+  width: 6rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
