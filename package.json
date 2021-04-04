@@ -9,7 +9,8 @@
     "start:dev": "npm run build:dev & nodemon server/server --ignore dist/ --ignore src/",
     "seed": "node seed.js",
     "test": "mocha",
-    "test:dev": "NODE_ENV='testing' DATABASE_URL='postgres://localhost/students_campuses_test' npm test -- --watch"
+    "test:dev": "NODE_ENV='testing' DATABASE_URL='postgres://localhost/students_campuses_test' npm test -- --watch",
+    "start": "npm run start:dev & npm run seed"
   },
   "keywords": [],
   "author": "",
