@@ -5,11 +5,6 @@ import { Button, Box } from '@material-ui/core';
 import { Pagination } from '@material-ui/lab';
 
 import Campus from './Campus';
-
-//set up function that handles URL queries
-//set location to redirecton, create state for path location
-// look at MDN URL search params
-
 import { fetchCampuses, getCampusesPageCount } from '../store/thunks/thunks';
 
 const CampusesList = ({ campuses, fetchCampuses }) => {

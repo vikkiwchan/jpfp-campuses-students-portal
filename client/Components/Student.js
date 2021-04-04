@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { deleteStudent, unregisterStudent } from '../store/thunks/thunks';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+
+import { deleteStudent, unregisterStudent } from '../store/thunks/thunks';
 
 const Student = ({ student, deleteStudent, unregister }) => {
   student = student || {};

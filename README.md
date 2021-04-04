@@ -4,4 +4,5 @@
   - Test Database: `createdb students_campuses_test`
 - `npm run test-dev` for test specs
 - `npm run seed` to seed database
-- `npm run start-dev` to start app
+- `npm run start` to start app
+- https://vikki-jpfp.herokuapp.com/#/

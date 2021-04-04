@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchCampus, deleteCampus } from '../store/thunks/thunks';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 
 import Student from './Student';
 import NotFound from './NotFound';
+import { fetchCampus, deleteCampus } from '../store/thunks/thunks';
 
 class SingleCampus extends Component {
   componentDidMount() {

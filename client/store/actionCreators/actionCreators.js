@@ -55,21 +55,6 @@ const _unregisterStudent = (student) => ({
   student,
 });
 
-const _sortLastName = (students) => ({
-  type: actionTypes.SORT_LAST_NAME,
-  students,
-});
-
-const _sortGpa = (students) => ({
-  type: actionTypes.SORT_GPA,
-  students,
-});
-
-const _sortCampusesByStudents = (campuses) => ({
-  type: actionTypes.SORT_CAMPUS_STUDENTS,
-  campuses,
-});
-
 const actionCreators = {
   loadCampuses,
   _createCampus,
@@ -82,9 +67,6 @@ const actionCreators = {
   _deleteStudent,
   _updateStudent,
   _unregisterStudent,
-  _sortLastName,
-  _sortGpa,
-  _sortCampusesByStudents,
 };
 
 export default actionCreators;

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createStudent, updateStudent } from '../store/thunks/thunks';
-import Button from '@material-ui/core/Button';
 
 class AddEditStudent extends Component {
   constructor(props) {
