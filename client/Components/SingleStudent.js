@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+
 import {
   fetchStudent,
   deleteStudent,
@@ -15,10 +16,19 @@ class SingleStudent extends Component {
   }
 
   componentDidUpdate(prevProps) {
+    console.log('-----> componentDidUpdate: prevProps:', prevProps);
+    console.log('-----> componentDidUpdate: this.props:', this.props);
     if (
-      !prevProps.campus.id ||
-      this.props.campus.id !== this.props.student.campusId
+      !prevProps.campus.id &&
+      this.props.student.campusId
+      // ||
+      // prevProps.campus.id !== this.props.student.campusId
     ) {
+      // console.log(
+      //   '-----> componentDidUpdate: this.props.student.campusId:',
+      //   this.props.student.campusId
+      // );
+      // check no null values are passing thoruh
       this.props.fetchCampus(this.props.student.campusId);
     }
     if (
@@ -30,10 +40,14 @@ class SingleStudent extends Component {
 
   render() {
     let { student, campus, deleteStudent } = this.props;
+    console.log('-----> render, student:', student);
     campus = campus || {};
-    const { fullName, gpa, imageUrl, email, id } = student;
+    student = student || {};
+    let { fullName, gpa, imageUrl, email, id } = student;
+    console.log('-----> render, id:', id);
+    id = id || '';
 
-    if (!student.id) {
+    if (!id) {
       return <NotFound />;
     }
     return (
@@ -50,9 +64,9 @@ class SingleStudent extends Component {
             <button onClick={() => deleteStudent(id)}>delete</button>
           </div>
         </div>
-        {campus.id ? (
+        {student.campusId ? (
           <>
-            <p>This student is registered at {campus.name}</p>
+            <p>This student is registered at {student.campus.name}</p>
             <Campus campus={{ ...campus, campusListView: false }} />
           </>
         ) : (
@@ -63,11 +77,11 @@ class SingleStudent extends Component {
   }
 }
 
-const mapStateToProps = (state, otherProps) => {
+const mapStateToProps = (state) => {
+  //console.log('-----> mapStateToProps, state:', state);
   return {
     student: state.singleStudent,
     campus: state.singleCampus,
-    otherProps,
   };
 };
 

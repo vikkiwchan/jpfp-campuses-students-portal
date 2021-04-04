@@ -92,7 +92,7 @@ router.delete('/:campusId', async (req, res, next) => {
   }
 });
 
-// PUT_UPDATE /api/campuses/:campusId
+// PUT /api/campuses/:campusId
 router.put('/:campusId', async (req, res, next) => {
   try {
     const campus = await Campus.findByPk(req.params.campusId);
@@ -116,26 +116,3 @@ router.get('/:campusId', async (req, res, next) => {
 });
 
 module.exports = router;
-
-// GET /api/campuses
-// router.get('/', async (req, res, next) => {
-//   try {
-//     const campuses = await Campus.findAll({ include: [{ model: Student }] });
-//     res.send(campuses);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
-
-//GET /api/campuses/sort/byStudents
-// router.get('/sort/byStudents', async (req, res, next) => {
-//   try {
-//     const campuses = await Campus.findAll({
-//       include: [{ model: Student }],
-//     });
-//     campuses.sort((a, b) => b.students.length - a.students.length);
-//     res.send(campuses);
-//   } catch (err) {
-//     next(err);
-//   }
-// });

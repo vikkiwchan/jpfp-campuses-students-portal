@@ -4,14 +4,6 @@ const {
 } = require('../db/index');
 
 // GET /api/students
-// router.get('/', async (req, res, next) => {
-//   try {
-//     const students = await Student.findAll({ include: Campus });
-//     res.send(students);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
 router.get('/', async (req, res, next) => {
   try {
     let { page } = req.query;
@@ -29,14 +21,6 @@ router.get('/', async (req, res, next) => {
 });
 
 // GET /api/students/sortByLastName
-// router.get('/sort/byLastName', async (req, res, next) => {
-//   try {
-//     const students = await Student.findAll({ order: [['lastName', 'ASC']] });
-//     res.send(students);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
 router.get('/sortByLastName', async (req, res, next) => {
   try {
     let { page } = req.query;
@@ -55,14 +39,6 @@ router.get('/sortByLastName', async (req, res, next) => {
 });
 
 // GET /api/students/sortByGpa
-// router.get('/sort/byGpa', async (req, res, next) => {
-//   try {
-//     const students = await Student.findAll({ order: [['gpa', 'DESC']] });
-//     res.send(students);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
 router.get('/sortByGpa', async (req, res, next) => {
   try {
     let { page } = req.query;
@@ -119,7 +95,7 @@ router.delete('/:studentId', async (req, res, next) => {
   }
 });
 
-// PUT_UPDATE /api/students
+// PUT /api/students
 router.put('/:studentId', async (req, res, next) => {
   try {
     const student = await Student.findByPk(req.params.studentId);

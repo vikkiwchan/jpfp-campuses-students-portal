@@ -39,6 +39,7 @@ const CampusesList = ({ campuses, fetchCampuses }) => {
     setVisFilter(visFilter);
   };
 
+  campuses = campuses || {};
   if (!campuses.length) {
     return <div>Loading ...</div>;
   }

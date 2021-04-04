@@ -31,6 +31,7 @@ const StudentsList = ({ students, fetchStudents }) => {
   };
 
   const handleClick = (visFilter) => {
+    console.log('----> handleClick', visFilter);
     setVisFilter(visFilter);
   };
 

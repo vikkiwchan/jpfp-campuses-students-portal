@@ -34,9 +34,6 @@ const Student = db.define('student', {
     type: DataTypes.STRING,
     defaultValue:
       'https://as2.ftcdn.net/jpg/02/76/44/01/500_F_276440189_NipLHqCA6EmdxmnyFtom1mDixC63GGKT.jpg',
-    validate: {
-      isUrl: true,
-    },
   },
   gpa: {
     type: DataTypes.DECIMAL,
@@ -48,6 +45,13 @@ const Student = db.define('student', {
   campusId: {
     type: DataTypes.INTEGER,
   },
+});
+
+Student.beforeCreate((student) => {
+  if (!student.imageUrl || student.imageUrl === '') {
+    student.imageUrl =
+      'https://as1.ftcdn.net/jpg/02/16/68/42/500_F_216684242_dYK0kFkHpMWpEFMVDeaXaKxVt7SLHiJk.jpg';
+  }
 });
 
 module.exports = Student;

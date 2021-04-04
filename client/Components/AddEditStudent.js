@@ -129,14 +129,7 @@ class AddEditStudent extends Component {
             value={gpa}
             onChange={handleInputChange}
           />
-          <label htmlFor='imageUrl'>
-            Image URL&nbsp;
-            {imageUrl === '' ? (
-              <span className='warning'>Required Field</span>
-            ) : (
-              ''
-            )}
-          </label>
+          <label htmlFor='imageUrl'>Image URL</label>
           <input
             name='imageUrl'
             type='text'
@@ -146,12 +139,7 @@ class AddEditStudent extends Component {
         </form>
         <button
           disabled={
-            firstName === '' ||
-            lastName === '' ||
-            email === '' ||
-            imageUrl === ''
-              ? true
-              : false
+            firstName === '' || lastName === '' || email === '' ? true : false
           }
           onClick={handleSubmit}
         >
