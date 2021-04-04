@@ -1,3 +1,4 @@
+- Please review `master` branch `Final commit`
 - `npm install`
 - Create two databases:
   - Development Database: `createdb students_campuses_db`
