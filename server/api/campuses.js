@@ -5,16 +5,6 @@ const {
 } = require('../db/index');
 
 // GET /api/campuses
-// router.get('/', async (req, res, next) => {
-//   try {
-//     const campuses = await Campus.findAll({ include: [{ model: Student }] });
-//     res.send(campuses);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
-
-// TEST
 router.get('/', async (req, res, next) => {
   try {
     let { page } = req.query;
@@ -25,12 +15,13 @@ router.get('/', async (req, res, next) => {
       offset: 10 * page,
       include: Student,
     });
-    res.send(data);
+    res.status(200).send(data);
   } catch (err) {
     next(err);
   }
 });
 
+// GET /api/campuses/sortByStudents
 router.get('/sortByStudents', async (req, res, next) => {
   let { page } = req.query;
   --page;
@@ -61,14 +52,21 @@ router.get('/sortByStudents', async (req, res, next) => {
   }
 });
 
-//GET /api/campuses/sort/byStudents
-router.get('/sort/byStudents', async (req, res, next) => {
+// GET /api/campuses/noRegisteredStudents
+router.get('/noRegisteredStudents', async (req, res, next) => {
   try {
-    const campuses = await Campus.findAll({
+    let { page } = req.query;
+    const start = (page - 1) * 10;
+    const end = page * 10;
+    let rows = await Campus.findAll({
       include: [{ model: Student }],
     });
-    campuses.sort((a, b) => b.students.length - a.students.length);
-    res.send(campuses);
+    const count = rows.filter((campus) => !campus.students.length).length;
+    rows = rows
+      .filter((campus) => !campus.students.length)
+      .sort((a, b) => a.id - b.id)
+      .slice(start, end);
+    res.status(200).send({ count, rows });
   } catch (err) {
     next(err);
   }
@@ -118,3 +116,26 @@ router.get('/:campusId', async (req, res, next) => {
 });
 
 module.exports = router;
+
+// GET /api/campuses
+// router.get('/', async (req, res, next) => {
+//   try {
+//     const campuses = await Campus.findAll({ include: [{ model: Student }] });
+//     res.send(campuses);
+//   } catch (err) {
+//     next(err);
+//   }
+// });
+
+//GET /api/campuses/sort/byStudents
+// router.get('/sort/byStudents', async (req, res, next) => {
+//   try {
+//     const campuses = await Campus.findAll({
+//       include: [{ model: Student }],
+//     });
+//     campuses.sort((a, b) => b.students.length - a.students.length);
+//     res.send(campuses);
+//   } catch (err) {
+//     next(err);
+//   }
+// });

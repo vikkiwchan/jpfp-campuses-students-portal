@@ -12,16 +12,30 @@ import NotFound from './NotFound';
 class SingleStudent extends Component {
   componentDidMount() {
     this.props.fetchStudent(this.props.match.params.studentId);
-    this.props.fetchCampus(this.props.student.campusId);
   }
+
+  componentDidUpdate(prevProps) {
+    if (
+      !prevProps.campus.id ||
+      this.props.campus.id !== this.props.student.campusId
+    ) {
+      this.props.fetchCampus(this.props.student.campusId);
+    }
+    if (
+      prevProps.match.params.studentId !== this.props.match.params.studentId
+    ) {
+      this.props.fetchStudent(this.props.match.params.studentId);
+    }
+  }
+
   render() {
-    const { student, deleteStudent, campus } = this.props;
+    let { student, campus, deleteStudent } = this.props;
+    campus = campus || {};
     const { fullName, gpa, imageUrl, email, id } = student;
 
     if (!student.id) {
       return <NotFound />;
     }
-
     return (
       <div id='single-student'>
         <div className='row-info'>
@@ -49,10 +63,11 @@ class SingleStudent extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, otherProps) => {
   return {
-    student: state.student,
-    campus: state.campus,
+    student: state.singleStudent,
+    campus: state.singleCampus,
+    otherProps,
   };
 };
 

@@ -15,9 +15,6 @@ const Campus = db.define('campus', {
     type: DataTypes.STRING,
     defaultValue:
       'https://libraries.usc.edu/sites/default/files/styles/16_9_xlarge/public/2019-08/dml-front.jpg?itok=uML3Op66',
-    validate: {
-      isUrl: true,
-    },
   },
   address: {
     type: DataTypes.STRING,
@@ -31,38 +28,14 @@ const Campus = db.define('campus', {
   },
 });
 
-Campus.beforeSave((campus) => {
+Campus.beforeCreate((campus) => {
   if (!campus.description || campus.description === '') {
     campus.description = `Campus description is ${faker.lorem.paragraphs(3)}`;
   }
+  if (!campus.imageUrl || campus.imageUrl === '') {
+    campus.imageUrl =
+      'https://libraries.usc.edu/sites/default/files/styles/16_9_xlarge/public/2019-08/dml-front.jpg?itok=uML3Op66';
+  }
 });
 
-// Campus.sortByStudents = (page) => {
-//   return this.findAndCountAll({
-//     distinct: true,
-//     limit: 10,
-//     offset: 10 * page,
-//     include: Student,
-//   });
-// };
-
 module.exports = Campus;
-
-// let { page } = req.query;
-// --page;
-// const data = await Campus.findAndCountAll({
-//   distinct: true,
-//   limit: 10,
-//   offset: 10 * page,
-//   include: [
-//     {
-//       model: Student,
-//       attributes: {
-//         include: [
-//           [sequelize.fn('COUNT', sequelize.col('id')), 'n_students'],
-//         ],
-//       },
-//       // order: [['n_students', 'DESC']],
-//     },
-//   ],
-// });

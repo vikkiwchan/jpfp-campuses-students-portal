@@ -9,8 +9,18 @@ class SingleCampus extends Component {
   componentDidMount() {
     this.props.fetchCampus(this.props.match.params.campusId);
   }
+
+  componentDidUpdate(prevProps) {
+    console.log('-----> componentDidUpdate, prevProps', prevProps);
+    console.log('-----> componentDidUpdate, props', this.props);
+    if (prevProps.match.params.campusId !== this.props.match.params.campusId) {
+      this.props.fetchCampus(this.props.match.params.campusId);
+    }
+  }
+
   render() {
-    const { campus, deleteCampus } = this.props;
+    let { campus, deleteCampus } = this.props;
+    campus = campus || {};
     let { id, name, imageUrl, description, address, students } = campus;
     students = students || [];
 
@@ -50,9 +60,10 @@ class SingleCampus extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, otherProps) => {
   return {
-    campus: state.campus,
+    campus: state.singleCampus,
+    otherProps,
   };
 };
 

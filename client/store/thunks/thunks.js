@@ -1,16 +1,57 @@
 import axios from 'axios';
 import actionCreators from '../actionCreators/actionCreators';
 
-export const fetchCampuses = (id) => {
-  id = id || 1;
+export const fetchCampuses = (page, visFilter) => {
   return async (dispatch) => {
     try {
-      const { rows } = (await axios.get(`/api/campuses?page=${id}`)).data;
-      dispatch(actionCreators.loadCampuses(rows));
+      page = page || 1;
+      let data;
+      if (visFilter === 'SHOW_ALL' || !visFilter) {
+        const { rows } = (await axios.get(`/api/campuses?page=${page}`)).data;
+        data = rows;
+      }
+      if (visFilter === 'SHOW_UNREGISTERED') {
+        const { rows } = (
+          await axios.get(`/api/campuses/noRegisteredStudents?page=${page}`)
+        ).data;
+        data = rows;
+      }
+      if (visFilter === 'SHOW_BY_STUDENTCOUNT') {
+        const { rows } = (
+          await axios.get(`/api/campuses/sortByStudents?page=${page}`)
+        ).data;
+        data = rows;
+      }
+      dispatch(actionCreators.loadCampuses(data));
     } catch (err) {
       console.error(err);
     }
   };
+};
+
+export const getPageCount = async (page, visFilter) => {
+  try {
+    let data;
+    if (visFilter === 'SHOW_ALL' || !visFilter) {
+      const { count } = (await axios.get(`/api/campuses?page=${page}`)).data;
+      data = count;
+    }
+    if (visFilter === 'SHOW_UNREGISTERED') {
+      const { count } = (
+        await axios.get(`/api/campuses/noRegisteredStudents?page=${page}`)
+      ).data;
+      data = count;
+    }
+    if (visFilter === 'SHOW_BY_STUDENTCOUNT') {
+      const { count } = (
+        await axios.get(`/api/campuses/sortByStudents?page=${page}`)
+      ).data;
+      data = count;
+    }
+    return Math.ceil(data / 10);
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 export const fetchStudents = () => {
@@ -38,10 +79,11 @@ export const deleteCampus = (id, history) => {
       await axios.delete(`/api/campuses/${id}`);
       dispatch(actionCreators._deleteCampus(id));
       if (history) {
-        history.push('/campuses');
+        history.push('/campuses'); // create a delete view
       }
     } catch (err) {
       console.error(err);
+      alert('Cannot delete a campus with registered students');
     }
   };
 };
@@ -72,8 +114,8 @@ export const fetchCampus = (id) => {
 export const fetchStudent = (id) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get(`/api/students/${id}`);
-      dispatch(actionCreators.selectStudent(data));
+      const singleStudent = (await axios.get(`/api/students/${id}`)).data;
+      dispatch(actionCreators.selectStudent(singleStudent));
     } catch (err) {
       console.error(err);
     }

@@ -1,22 +1,80 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
+import { Pagination } from '@material-ui/lab';
 
 import Campus from './Campus';
-import Filter from './Filter';
-import SortCampuses from './SortCampuses';
-import Footer from './Footer';
 
-const CampusesList = ({ campuses }) => {
+//set up function that handles URL queries
+//set location to redirecton, create state for path location
+// look at MDN URL search params
+
+import { fetchCampuses, getPageCount } from '../store/thunks/thunks';
+
+const CampusesList = ({ campuses, fetchCampuses }) => {
+  const [page, setPage] = useState(1);
+  const [count, setCount] = useState(1);
+  const [visFilter, setVisFilter] = useState('SHOW_ALL');
+  // !! add state for re-render
+
+  // load campus based on filter or sort selection
+  useEffect(async () => {
+    //console.log('----> useEffect', visFilter);
+    fetchCampuses(page, visFilter);
+    setCount(await getPageCount(page, visFilter));
+    setVisFilter(visFilter);
+  }, [visFilter, page]); // !! add state for re-render
+
+  // reset page to 1 after filter choice has changes
+  useEffect(() => {
+    setPage(1);
+  }, [visFilter]);
+
+  const handleChange = (event, value) => {
+    //console.log('----> handleChange', value);
+    setPage(value);
+  };
+
+  const handleClick = (visFilter) => {
+    setVisFilter(visFilter);
+  };
+
   if (!campuses.length) {
-    return '...loading campuses';
+    return <div>Loading ...</div>;
   }
+
   return (
     <div>
       <h1>All Campuses</h1>
-      <Filter view='campuses' />
-      <SortCampuses />
+      <div id='campuses-visFilter'>
+        <label>
+          <strong>Currently showing:&nbsp;</strong>
+        </label>
+        <a
+          className={visFilter === 'SHOW_ALL' ? 'selected' : ''}
+          onClick={() => handleClick('SHOW_ALL')}
+        >
+          All
+        </a>
+        <span>,&nbsp;</span>
+        <a
+          className={visFilter === 'SHOW_BY_STUDENTCOUNT' ? 'selected' : ''}
+          onClick={() => handleClick('SHOW_BY_STUDENTCOUNT')}
+        >
+          Sort By Number of Registered Students
+        </a>
+        <br />
+        <label>
+          <strong>Filter:&nbsp;</strong>
+        </label>
+        <a
+          className={visFilter === 'SHOW_UNREGISTERED' ? 'selected' : ''}
+          onClick={() => handleClick('SHOW_UNREGISTERED')}
+        >
+          Unregistered to a Campus
+        </a>
+      </div>
       <br />
       <Link to={'/campuses/add-campus'}>
         <Button variant='contained' color='primary'>
@@ -30,30 +88,30 @@ const CampusesList = ({ campuses }) => {
           </div>
         ))}
       </div>
-      <Footer />
+      <div>
+        <Pagination
+          count={count}
+          page={page}
+          onChange={handleChange}
+          shape='rounded'
+          color='primary'
+        />
+      </div>
     </div>
   );
 };
 
 const mapStateToProps = (state) => {
-  const allCampuses = state.campuses || [];
-  const unregisteredCampuses = state.campuses.filter((campus) => {
-    const students = campus.students || [];
-    return !students.length;
-  });
-
-  const filterFunc = (state) => {
-    if (state.visFilter.campuses === 'SHOW_ALL') {
-      return allCampuses;
-    }
-    if (state.visFilter.campuses === 'SHOW_UNREGISTERED') {
-      return unregisteredCampuses;
-    }
-  };
-
   return {
-    campuses: filterFunc(state),
+    campuses: state.campuses,
   };
 };
 
-export default connect(mapStateToProps)(CampusesList);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchCampuses: (page, visFilter) =>
+      dispatch(fetchCampuses(page, visFilter)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CampusesList);

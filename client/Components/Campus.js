@@ -5,16 +5,6 @@ import { deleteCampus } from '../store/thunks/thunks';
 import Paper from '@material-ui/core/Paper';
 
 const Campus = ({ campus, deleteCampus }) => {
-  const buttonsView = campus.campusListView ? (
-    <div>
-      <Link to={`/campuses/edit-campus/${campus.id}`}>
-        <button>edit</button>
-      </Link>
-      <button onClick={() => deleteCampus(campus.id)}>delete</button>
-    </div>
-  ) : (
-    <></>
-  );
   return (
     <Paper>
       <div className='card'>
@@ -28,18 +18,27 @@ const Campus = ({ campus, deleteCampus }) => {
               ? `Students (${campus.students.length})`
               : 'No students'}
           </p>
-          {buttonsView}
+          {campus.campusListView ? (
+            <div>
+              <Link to={`/campuses/edit-campus/${campus.id}`}>
+                <button>edit</button>
+              </Link>
+              <button onClick={() => deleteCampus(campus.id)}>delete</button>
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </Paper>
   );
 };
 
-const mapStateToProps = (state, otherProps) => {
-  return {
-    campus: otherProps.campus,
-  };
-};
+// const mapStateToProps = (state, otherProps) => {
+//   return {
+//     campus: otherProps.campus,
+//   };
+// };
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -47,4 +46,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Campus);
+export default connect(null, mapDispatchToProps)(Campus);

@@ -89,28 +89,14 @@ class AddEditCampus extends Component {
             value={address}
             onChange={handleInputChange}
           />
-          <label htmlFor='description'>
-            Description&nbsp;
-            {description === '' ? (
-              <span className='warning'>Required Field</span>
-            ) : (
-              ''
-            )}
-          </label>
+          <label htmlFor='description'>Description</label>
           <textarea
             name='description'
             rows='5'
             value={description}
             onChange={handleInputChange}
           />
-          <label htmlFor='imageUrl'>
-            Image Url&nbsp;
-            {imageUrl === '' ? (
-              <span className='warning'>Required Field</span>
-            ) : (
-              ''
-            )}
-          </label>
+          <label htmlFor='imageUrl'>Image Url</label>
           <input
             name='imageUrl'
             type='text'
@@ -119,14 +105,7 @@ class AddEditCampus extends Component {
           />
         </form>
         <button
-          disabled={
-            name === '' ||
-            address === '' ||
-            description === '' ||
-            imageUrl === ''
-              ? true
-              : false
-          }
+          disabled={name === '' || address === '' ? true : false}
           id='submit-button'
           onClick={handleSubmit}
         >

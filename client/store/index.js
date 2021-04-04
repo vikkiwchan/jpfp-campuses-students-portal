@@ -12,8 +12,8 @@ const store = createStore(
   combineReducers({
     campuses: campusesReducer,
     students: studentsReducer,
-    campus: singleCampusReducer,
-    student: singleStudentReducer,
+    singleCampus: singleCampusReducer,
+    singleStudent: singleStudentReducer,
     visFilter: visibilityFilterReducer,
   }),
   applyMiddleware(thunk, logger)
