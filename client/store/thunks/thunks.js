@@ -54,17 +54,6 @@ export const getCampusesPageCount = async (page, visFilter) => {
   }
 };
 
-// export const fetchStudents = () => {
-//   return async (dispatch) => {
-//     try {
-//       const { data } = await axios.get('/api/students');
-//       dispatch(actionCreators.loadStudents(data));
-//     } catch (err) {
-//       console.error(err);
-//     }
-//   };
-// };
-
 export const fetchStudents = (page, visFilter) => {
   return async (dispatch) => {
     try {
@@ -144,7 +133,7 @@ export const deleteCampus = (id, history) => {
       await axios.delete(`/api/campuses/${id}`);
       dispatch(actionCreators._deleteCampus(id));
       if (history) {
-        history.push('/campuses'); // create a delete view
+        history.push('/campuses');
       }
     } catch (err) {
       console.error(err);

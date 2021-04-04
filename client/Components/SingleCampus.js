@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchCampus, deleteCampus } from '../store/thunks/thunks';
 import { Link } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
+
 import Student from './Student';
 import NotFound from './NotFound';
 
@@ -11,8 +13,6 @@ class SingleCampus extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    //console.log('-----> componentDidUpdate, prevProps', prevProps);
-    //console.log('-----> componentDidUpdate, props', this.props);
     if (prevProps.match.params.campusId !== this.props.match.params.campusId) {
       this.props.fetchCampus(this.props.match.params.campusId);
     }
@@ -38,10 +38,25 @@ class SingleCampus extends Component {
         </div>
         <div className='row-info'>
           <p>{address}</p>
-          <Link to={`/campuses/edit-campus/${id}`}>
-            <button>edit</button>
-          </Link>
-          <button onClick={() => deleteCampus(id)}>delete</button>
+          <div className='button-set'>
+            <div className='left-button'>
+              <Button variant='contained' color='primary' size='medium'>
+                <Link to={`/campuses/edit-campus/${id}`}>edit</Link>
+              </Button>
+            </div>
+            <div className='right-button'>
+              <Button
+                variant='contained'
+                color='primary'
+                size='medium'
+                onClick={() => {
+                  deleteCampus(id);
+                }}
+              >
+                delete
+              </Button>
+            </div>
+          </div>
         </div>
         <div>
           <h3>Students on Campus</h3>

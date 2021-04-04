@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { deleteCampus } from '../store/thunks/thunks';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+
+import { deleteCampus } from '../store/thunks/thunks';
 
 const Campus = ({ campus, deleteCampus }) => {
   return (
@@ -19,11 +21,24 @@ const Campus = ({ campus, deleteCampus }) => {
               : 'No students'}
           </p>
           {campus.campusListView ? (
-            <div>
-              <Link to={`/campuses/edit-campus/${campus.id}`}>
-                <button>edit</button>
-              </Link>
-              <button onClick={() => deleteCampus(campus.id)}>delete</button>
+            <div className='button-set'>
+              <div className='left-button'>
+                <Button variant='contained' color='secondary' size='small'>
+                  <Link to={`/campuses/edit-campus/${campus.id}`}>edit</Link>
+                </Button>
+              </div>
+              <div className='right-button'>
+                <Button
+                  variant='contained'
+                  color='secondary'
+                  size='small'
+                  onClick={() => {
+                    deleteCampus(campus.id);
+                  }}
+                >
+                  delete
+                </Button>
+              </div>
             </div>
           ) : (
             <></>
@@ -33,12 +48,6 @@ const Campus = ({ campus, deleteCampus }) => {
     </Paper>
   );
 };
-
-// const mapStateToProps = (state, otherProps) => {
-//   return {
-//     campus: otherProps.campus,
-//   };
-// };
 
 const mapDispatchToProps = (dispatch) => {
   return {

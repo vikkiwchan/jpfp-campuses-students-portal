@@ -3,20 +3,35 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { deleteStudent, unregisterStudent } from '../store/thunks/thunks';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
 
 const Student = ({ student, deleteStudent, unregister }) => {
   student = student || {};
   const deleteOrUnregister = student.studentListView ? (
     <>
       <p>{student.campusId ? student.campus.name : 'Unassigned to a campus'}</p>
-      <button onClick={() => deleteStudent(student.id)}>delete</button>
+      <Button
+        variant='contained'
+        color='secondary'
+        size='small'
+        onClick={() => {
+          deleteStudent(student.id);
+        }}
+      >
+        delete
+      </Button>
     </>
   ) : (
-    <button
-      onClick={() => unregister(student.id, { ...student, campusId: null })}
+    <Button
+      variant='contained'
+      color='secondary'
+      size='small'
+      onClick={() => {
+        unregister(student.id, { ...student, campusId: null });
+      }}
     >
       unregister
-    </button>
+    </Button>
   );
   return (
     <div className='grid-item-student'>

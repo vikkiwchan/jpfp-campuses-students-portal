@@ -55,11 +55,6 @@ const _unregisterStudent = (student) => ({
   student,
 });
 
-const setVisibilityFilter = (visFilter) => ({
-  type: actionTypes.SET_VISIBILITY_FILTER,
-  visFilter,
-});
-
 const _sortLastName = (students) => ({
   type: actionTypes.SORT_LAST_NAME,
   students,
@@ -87,7 +82,6 @@ const actionCreators = {
   _deleteStudent,
   _updateStudent,
   _unregisterStudent,
-  setVisibilityFilter,
   _sortLastName,
   _sortGpa,
   _sortCampusesByStudents,

@@ -2,27 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Pagination } from '@material-ui/lab';
+import Button from '@material-ui/core/Button';
 
 import Student from './Student';
 import { fetchStudents, getStudentsPageCount } from '../store/thunks/thunks';
-// import Filter from './Filter';
-//import SortStudents from './SortStudents';
 
 const StudentsList = ({ students, fetchStudents }) => {
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(11);
   const [visFilter, setVisFilter] = useState('SHOW_ALL');
 
-  // load students based on filter or sort selection
   useEffect(async () => {
-    console.log('----> useEffect1', visFilter);
     fetchStudents(page, visFilter);
     setCount(await getStudentsPageCount(page, visFilter));
     setVisFilter(visFilter);
   }, [visFilter, page]);
 
   useEffect(() => {
-    console.log('----> useEffect2', visFilter);
     setPage(1);
   }, [visFilter]);
 
@@ -31,7 +27,6 @@ const StudentsList = ({ students, fetchStudents }) => {
   };
 
   const handleClick = (visFilter) => {
-    console.log('----> handleClick', visFilter);
     setVisFilter(visFilter);
   };
 
@@ -82,7 +77,9 @@ const StudentsList = ({ students, fetchStudents }) => {
       </div>
       <br />
       <Link to='/students/add-student'>
-        <button>Add Student</button>
+        <Button variant='contained' color='primary'>
+          Add Student
+        </Button>
       </Link>
       <div id='all-students' className='grid-container'>
         {students.map((student) => (
@@ -103,24 +100,6 @@ const StudentsList = ({ students, fetchStudents }) => {
   );
 };
 
-// const mapStateToProps = (state) => {
-//   const allStudents = state.students;
-//   const unregisteredStudents = state.students.filter(
-//     (student) => student.campusId === null
-//   );
-
-//   const filterFunc = (state) => {
-//     if (state.visFilter.students === 'SHOW_ALL') {
-//       return allStudents;
-//     }
-//     if (state.visFilter.students === 'SHOW_UNREGISTERED') {
-//       return unregisteredStudents;
-//     }
-//   };
-//   return {
-//     students: filterFunc(state),
-//   };
-// };
 const mapStateToProps = (state) => {
   return {
     students: state.students,

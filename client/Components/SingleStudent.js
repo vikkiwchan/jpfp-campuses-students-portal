@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 
 import {
   fetchStudent,
@@ -16,19 +17,10 @@ class SingleStudent extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log('-----> componentDidUpdate: prevProps:', prevProps);
-    console.log('-----> componentDidUpdate: this.props:', this.props);
     if (
-      !prevProps.campus.id &&
-      this.props.student.campusId
-      // ||
-      // prevProps.campus.id !== this.props.student.campusId
+      (!prevProps.campus.id && this.props.student.campusId) ||
+      prevProps.campus.id !== this.props.student.campusId
     ) {
-      // console.log(
-      //   '-----> componentDidUpdate: this.props.student.campusId:',
-      //   this.props.student.campusId
-      // );
-      // check no null values are passing thoruh
       this.props.fetchCampus(this.props.student.campusId);
     }
     if (
@@ -40,11 +32,9 @@ class SingleStudent extends Component {
 
   render() {
     let { student, campus, deleteStudent } = this.props;
-    console.log('-----> render, student:', student);
     campus = campus || {};
     student = student || {};
     let { fullName, gpa, imageUrl, email, id } = student;
-    console.log('-----> render, id:', id);
     id = id || '';
 
     if (!id) {
@@ -58,10 +48,25 @@ class SingleStudent extends Component {
             <h2>{fullName}</h2>
             <p>{email}</p>
             <p>GPA: {gpa}</p>
-            <Link to={`/students/edit-student/${id}`}>
-              <button>edit</button>
-            </Link>
-            <button onClick={() => deleteStudent(id)}>delete</button>
+            <div className='button-set'>
+              <div className='left-button'>
+                <Button variant='contained' color='primary' size='medium'>
+                  <Link to={`/students/edit-student/${id}`}>edit</Link>
+                </Button>
+              </div>
+              <div className='right-button'>
+                <Button
+                  variant='contained'
+                  color='primary'
+                  size='medium'
+                  onClick={() => {
+                    deleteStudent(id);
+                  }}
+                >
+                  delete
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
         {student.campusId ? (
@@ -78,7 +83,6 @@ class SingleStudent extends Component {
 }
 
 const mapStateToProps = (state) => {
-  //console.log('-----> mapStateToProps, state:', state);
   return {
     student: state.singleStudent,
     campus: state.singleCampus,

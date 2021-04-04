@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import { Pagination } from '@material-ui/lab';
 
@@ -16,17 +16,15 @@ const CampusesList = ({ campuses, fetchCampuses }) => {
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(11);
   const [visFilter, setVisFilter] = useState('SHOW_ALL');
-  // !! add state for re-render
 
   // load campus based on filter or sort selection
   useEffect(async () => {
-    //console.log('----> useEffect', visFilter);
     fetchCampuses(page, visFilter);
     setCount(await getCampusesPageCount(page, visFilter));
     setVisFilter(visFilter);
-  }, [visFilter, page]); // !! add state for re-render
+  }, [visFilter, page]);
 
-  // reset page to 1 after filter choice has changes
+  // reset page to 1 after filter choice has changed
   useEffect(() => {
     setPage(1);
   }, [visFilter]);
@@ -41,7 +39,7 @@ const CampusesList = ({ campuses, fetchCampuses }) => {
 
   campuses = campuses || {};
   if (!campuses.length) {
-    return <div>Loading ...</div>;
+    return '...Loading';
   }
 
   return (
