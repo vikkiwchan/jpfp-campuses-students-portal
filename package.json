@@ -10,7 +10,7 @@
     "seed": "node seed.js",
     "test": "mocha",
     "test:dev": "NODE_ENV='testing' DATABASE_URL='postgres://localhost/students_campuses_test' npm test -- --watch",
-    "start": "node server/index.js"
+    "start": "node server/server.js"
   },
   "keywords": [],
   "author": "",
