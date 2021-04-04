@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import { Pagination } from '@material-ui/lab';
 
@@ -10,11 +10,11 @@ import Campus from './Campus';
 //set location to redirecton, create state for path location
 // look at MDN URL search params
 
-import { fetchCampuses, getPageCount } from '../store/thunks/thunks';
+import { fetchCampuses, getCampusesPageCount } from '../store/thunks/thunks';
 
 const CampusesList = ({ campuses, fetchCampuses }) => {
   const [page, setPage] = useState(1);
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState(11);
   const [visFilter, setVisFilter] = useState('SHOW_ALL');
   // !! add state for re-render
 
@@ -22,7 +22,7 @@ const CampusesList = ({ campuses, fetchCampuses }) => {
   useEffect(async () => {
     //console.log('----> useEffect', visFilter);
     fetchCampuses(page, visFilter);
-    setCount(await getPageCount(page, visFilter));
+    setCount(await getCampusesPageCount(page, visFilter));
     setVisFilter(visFilter);
   }, [visFilter, page]); // !! add state for re-render
 
@@ -32,7 +32,6 @@ const CampusesList = ({ campuses, fetchCampuses }) => {
   }, [visFilter]);
 
   const handleChange = (event, value) => {
-    //console.log('----> handleChange', value);
     setPage(value);
   };
 
@@ -88,15 +87,13 @@ const CampusesList = ({ campuses, fetchCampuses }) => {
           </div>
         ))}
       </div>
-      <div>
-        <Pagination
-          count={count}
-          page={page}
-          onChange={handleChange}
-          shape='rounded'
-          color='primary'
-        />
-      </div>
+      <Pagination
+        count={count}
+        page={page}
+        onChange={handleChange}
+        shape='rounded'
+        color='primary'
+      />
     </div>
   );
 };

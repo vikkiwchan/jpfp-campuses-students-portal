@@ -11,8 +11,8 @@ class SingleCampus extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log('-----> componentDidUpdate, prevProps', prevProps);
-    console.log('-----> componentDidUpdate, props', this.props);
+    //console.log('-----> componentDidUpdate, prevProps', prevProps);
+    //console.log('-----> componentDidUpdate, props', this.props);
     if (prevProps.match.params.campusId !== this.props.match.params.campusId) {
       this.props.fetchCampus(this.props.match.params.campusId);
     }

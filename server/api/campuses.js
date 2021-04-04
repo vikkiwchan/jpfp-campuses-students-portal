@@ -46,7 +46,7 @@ router.get('/sortByStudents', async (req, res, next) => {
       limit: 10,
       offset: 10 * page,
     });
-    res.send(data);
+    res.status(200).send(data);
   } catch (err) {
     next(err);
   }

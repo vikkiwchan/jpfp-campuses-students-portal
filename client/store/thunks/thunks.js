@@ -29,7 +29,7 @@ export const fetchCampuses = (page, visFilter) => {
   };
 };
 
-export const getPageCount = async (page, visFilter) => {
+export const getCampusesPageCount = async (page, visFilter) => {
   try {
     let data;
     if (visFilter === 'SHOW_ALL' || !visFilter) {
@@ -54,15 +54,80 @@ export const getPageCount = async (page, visFilter) => {
   }
 };
 
-export const fetchStudents = () => {
+// export const fetchStudents = () => {
+//   return async (dispatch) => {
+//     try {
+//       const { data } = await axios.get('/api/students');
+//       dispatch(actionCreators.loadStudents(data));
+//     } catch (err) {
+//       console.error(err);
+//     }
+//   };
+// };
+
+export const fetchStudents = (page, visFilter) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get('/api/students');
+      page = page || 1;
+      let data;
+      if (visFilter === 'SHOW_ALL' || !visFilter) {
+        const { rows } = (await axios.get(`/api/students?page=${page}`)).data;
+        data = rows;
+      }
+      if (visFilter === 'SHOW_UNREGISTERED') {
+        const { rows } = (
+          await axios.get(`/api/students/unregistered?page=${page}`)
+        ).data;
+        data = rows;
+      }
+      if (visFilter === 'SORT_BY_GPA') {
+        const { rows } = (
+          await axios.get(`/api/students/sortByGpa?page=${page}`)
+        ).data;
+        data = rows;
+      }
+      if (visFilter === 'SORT_BY_LASTNAME') {
+        const { rows } = (
+          await axios.get(`/api/students/sortByLastName?page=${page}`)
+        ).data;
+        data = rows;
+      }
       dispatch(actionCreators.loadStudents(data));
     } catch (err) {
       console.error(err);
     }
   };
+};
+
+export const getStudentsPageCount = async (page, visFilter) => {
+  try {
+    let data;
+    if (visFilter === 'SHOW_ALL' || !visFilter) {
+      const { count } = (await axios.get(`/api/students?page=${page}`)).data;
+      data = count;
+    }
+    if (visFilter === 'SHOW_UNREGISTERED') {
+      const { count } = (
+        await axios.get(`/api/students/unregistered?page=${page}`)
+      ).data;
+      data = count;
+    }
+    if (visFilter === 'SORT_BY_GPA') {
+      const { count } = (
+        await axios.get(`/api/students/sortByGpa?page=${page}`)
+      ).data;
+      data = count;
+    }
+    if (visFilter === 'SORT_BY_LASTNAME') {
+      const { count } = (
+        await axios.get(`/api/students/sortByLastName?page=${page}`)
+      ).data;
+      data = count;
+    }
+    return Math.ceil(data / 10);
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 export const createCampus = (campus, history) => {
